@@ -3,35 +3,12 @@ import java.io.FileReader;
 
 public class TSP_Problem
 {
-    public class Coords
-    {
-        private double x;
-        private double y;
-
-        public Coords(double x, double y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-
-        public double getX()
-        {
-            return x;
-        }
-
-        public double getY()
-        {
-            return y;
-        }
-    }
-
     private String name;
     private String comment;
     private String type;
     private int dimension;
     private String edge_weight_type;
     private Coords[] points;
-
 
     public TSP_Problem(String file_path)
     {
@@ -83,19 +60,22 @@ public class TSP_Problem
                 line = br.readLine();
             }
             br.close();
-            System.out.println("Name: " + name);
-            System.out.println("Comment: " + comment);
-            System.out.println("Type: " + type);
-            System.out.println("Dimension: " + dimension);
-            System.out.println("Edge Weight Type: " + edge_weight_type);
-            for (int i = 0; i < dimension; i++)
-            {
-                System.out.println(i + " : " + points[i].getX() + ", " + points[i].getY());
-            }
         }
         catch (Exception e)
         {
             System.out.println(e);
         }
+    }
+
+    // Get array of all Coords
+    public Coords[] getCoords()
+    {
+        return points;
+    }
+
+    // Get distance between Coords i and j.
+    public double getDistance(int i, int j)
+    {
+        return Math.sqrt(Math.pow((points[i].getX() - points[j].getX()), 2) + Math.pow((points[i].getY() - points[j].getY(), 2));
     }
 }
