@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 public class TSP_Problem
 {
@@ -8,7 +9,7 @@ public class TSP_Problem
     private String type;
     private int dimension;
     private String edge_weight_type;
-    private Coords[] points;
+    private ArrayList<Coords> points;
 
     public TSP_Problem(String file_path)
     {
@@ -36,7 +37,7 @@ public class TSP_Problem
                             break;
                         case "DIMENSION":
                             dimension = Integer.parseInt(tokens[1]);
-                            points = new Coords[dimension];
+                            points = new ArrayList<Coords>(dimension);
                             break;
                         case "EDGE_WEIGHT_TYPE":
                             edge_weight_type = tokens[1];
@@ -54,7 +55,7 @@ public class TSP_Problem
                     if (tokens[0].equals("EOF")) {}
                     else
                     {
-                        points[Integer.parseInt(tokens[0])-1] = new Coords(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+                        points.add(new Coords(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2])));
                     }
                 }
                 line = br.readLine();
@@ -67,15 +68,39 @@ public class TSP_Problem
         }
     }
 
-    // Get array of all Coords
-    public Coords[] getCoords()
+    // Gets the dimension of the TSP.
+    public int getDimension()
+    {
+        return dimension;
+    }
+
+    // Gets the array of all Coords.
+    public ArrayList<Coords> getCoords()
     {
         return points;
     }
 
-    // Get distance between Coords i and j.
+    // Gets the distance between Coords i and j.
     public double getDistance(int i, int j)
     {
-        return Math.sqrt(Math.pow((points[i].getX() - points[j].getX()), 2) + Math.pow((points[i].getY() - points[j].getY()), 2));
+        return Math.sqrt(Math.pow((points.get(i).getX() - points.get(j).getX()), 2) + Math.pow((points.get(i).getY() - points.get(j).getY()), 2));
+    }
+
+    // Gets the total distance for a specified solution.
+    public double getTotalDistance(ArrayList<Integer> solution)
+    {
+        double total = 0;
+        for (int i = 0; i < solution.size(); i++)
+        {
+            if (i+1 == solution.size())
+            {
+                total += getDistance(i, 0);
+            }
+            else
+            {
+                total += getDistance(i, i+1);
+            }
+        }
+        return total;
     }
 }
