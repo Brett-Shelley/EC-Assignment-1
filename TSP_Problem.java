@@ -76,6 +76,6 @@ public class TSP_Problem
     // Get distance between Coords i and j.
     public double getDistance(int i, int j)
     {
-        return Math.sqrt(Math.pow((points[i].getX() - points[j].getX()), 2) + Math.pow((points[i].getY() - points[j].getY(), 2));
+        return Math.sqrt(Math.pow((points[i].getX() - points[j].getX()), 2) + Math.pow((points[i].getY() - points[j].getY()), 2));
     }
 }
