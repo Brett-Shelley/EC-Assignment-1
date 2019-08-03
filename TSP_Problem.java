@@ -19,6 +19,7 @@ public class TSP_Problem
             String line = br.readLine();
             String[] tokens;
             boolean read_coords = false;
+            points = new ArrayList<Coords>();
             while (line != null)
             {
                 if (!read_coords)
@@ -37,7 +38,6 @@ public class TSP_Problem
                             break;
                         case "DIMENSION":
                             dimension = Integer.parseInt(tokens[1]);
-                            points = new ArrayList<Coords>(dimension);
                             break;
                         case "EDGE_WEIGHT_TYPE":
                             edge_weight_type = tokens[1];
@@ -94,11 +94,11 @@ public class TSP_Problem
         {
             if (i+1 == solution.size())
             {
-                total += getDistance(i, 0);
+                total += getDistance(solution.get(i), 0);
             }
             else
             {
-                total += getDistance(i, i+1);
+                total += getDistance(solution.get(i), solution.get(i+1));
             }
         }
         return total;
