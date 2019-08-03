@@ -8,7 +8,7 @@ public class Main
 
     public static void main(String[] args)
     {
-        tsp = new TSP_Problem("./eil51.tsp");
+        tsp = new TSP_Problem("./Problems/eil51.tsp");
 
         ArrayList<Double> jumpResultAll = new ArrayList<Double>();
         ArrayList<Double> jumpResultMin = new ArrayList<Double>();
