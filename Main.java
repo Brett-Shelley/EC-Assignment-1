@@ -22,71 +22,63 @@ public class Main
         ArrayList<Double> twoOptResultMin = new ArrayList<Double>();
         Double twoOptMin = 0.0;
 
+        int numTests = 30;
+
+        jumpMin = runTests("Jump", 0, jumpResultAll, jumpResultMin,
+            jumpMin, numTests, true);
+
+        exchangeMin = runTests("Exchange", 1, exchangeResultAll, exchangeResultMin,
+            exchangeMin, numTests, true);
+
+        twoOptMin = runTests("2-Opt", 2, twoOptResultAll, twoOptResultMin,
+            twoOptMin, numTests, true);
+
+        return;
+    }
+
+    //I'd pass the function by reference instead, but Java 11 doesn't let you do that
+    public static double runTests(String name, int function, ArrayList<Double> resultAll,
+        ArrayList<Double> resultMin, double min, int numTests, boolean printOutput){
+        
         ArrayList<Double> temp;
-        for (int i = 0; i < 30; i++)
-        {
-            temp = jumpLS();
-            jumpResultAll.addAll(temp);
-            jumpResultMin.add(temp.get(temp.size()-1));
-            if (i == 0)
-            {
-                jumpMin = temp.get(temp.size()-1);
-            }
-            else
-            {
-                if (jumpMin > temp.get(temp.size()-1))
-                {
-                    jumpMin = temp.get(temp.size()-1);
-                }
-            }
-
-            temp = exchangeLS();
-            exchangeResultAll.addAll(temp);
-            exchangeResultMin.add(temp.get(temp.size()-1));
-            if (i == 0)
-            {
-                exchangeMin = temp.get(temp.size()-1);
-            }
-            else
-            {
-                if (exchangeMin > temp.get(temp.size()-1))
-                {
-                    exchangeMin = temp.get(temp.size()-1);
-                }
+        for(int i = 0; i < numTests; i++){
+            switch(function){
+                case 0:
+                    temp = jumpLS();
+                    break;
+                case 1:
+                    temp = exchangeLS();
+                    break;
+                case 2:
+                    temp = twoOptLS();
+                    break;
+                default:
+                    System.out.println("Function number " + function + " is not a valid option.");
+                    return -1;  //Can't exit here or else Java complains about tempt being undefined later on...
+                                //return works though
             }
 
-            temp = twoOptLS();
-            twoOptResultAll.addAll(temp);
-            twoOptResultMin.add(temp.get(temp.size()-1));
-            if (i == 0)
-            {
-                twoOptMin = temp.get(temp.size()-1);
+            resultAll.addAll(temp);
+            resultMin.add(temp.get(temp.size()-1));
+            if(i == 0){
+                min = temp.get(temp.size()-1);
             }
-            else
-            {
-                if (twoOptMin > temp.get(temp.size()-1))
-                {
-                    twoOptMin = temp.get(temp.size()-1);
+            else{
+                if(min > temp.get(temp.size()-1)){
+                    min = temp.get(temp.size()-1);
                 }
             }
         }
 
-        System.out.println("Minimum for Jump: " + jumpMin);
-        System.out.println("Mean of all minimums for Jump: " + getMean(jumpResultMin));
-        System.out.println("Mean of all solutions for Jump: " + getMean(jumpResultAll));
-        System.out.println();
+        if(printOutput){
+            System.out.println("Minimum for " + name + ": " + min);
+            System.out.println("Mean of all minimums for " + name + ": "  + getMean(resultMin));
+            System.out.println("Mean of all solutions for " + name + ": "  + getMean(resultAll));
+            System.out.println();
+        }
 
-        System.out.println("Minimum for Exchange: " + exchangeMin);
-        System.out.println("Mean of all minimums for Exchange: " + getMean(exchangeResultMin));
-        System.out.println("Mean of all solutions for Jump: " + getMean(exchangeResultAll));
-        System.out.println();
-
-        System.out.println("Minimum for 2-Opt: " + twoOptMin);
-        System.out.println("Mean of all minimums for 2-Opt: " + getMean(twoOptResultMin));
-        System.out.println("Mean of all solutions for Jump: " + getMean(twoOptResultAll));
-        System.out.println();
-
-        return;
+        return min; //Since we can't pass primitives by reference in Java, lets just return the only primitive
+                    //Although we don't really need it after here
     }
 
     // Gets the mean of a given ArrayList of Doubles.
