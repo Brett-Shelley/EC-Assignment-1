@@ -80,6 +80,13 @@ public class Main
             }
         }
         System.out.println(minDistance);
+        Double mean = 0.0;
+        for (Double d : distances)
+        {
+            mean += d;
+        }
+        mean = mean / distances.size();
+        System.out.println(mean);
     }
 
     public static void twoOptLS()
