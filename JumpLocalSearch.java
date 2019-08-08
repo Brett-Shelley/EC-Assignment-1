@@ -61,4 +61,9 @@ public class JumpLocalSearch implements ILocalSearch
         }
         return distances;
 	}
+	
+	public String name()
+	{
+		return "Jump Local Search";
+	}
 }

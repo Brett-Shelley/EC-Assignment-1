@@ -46,4 +46,9 @@ public class ExchangeLocalSearch implements ILocalSearch
         }
         return distances;
 	}
+	
+	public String name()
+	{
+		return "Exchange Local Search";
+	}
 }

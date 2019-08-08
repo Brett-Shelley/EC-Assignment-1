@@ -6,4 +6,6 @@ import java.util.ArrayList;
 public interface ILocalSearch
 {
 	public ArrayList<Double> search(TSP_Problem problem);
+	
+	public String name();
 }

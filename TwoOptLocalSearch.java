@@ -65,4 +65,9 @@ public class TwoOptLocalSearch implements ILocalSearch
         }
         return distances;
 	}
+	
+	public String name()
+	{
+		return "2-Opt Local Search";
+	}
 }
