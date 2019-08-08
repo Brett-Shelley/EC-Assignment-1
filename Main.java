@@ -38,7 +38,8 @@ public class Main
 
     //I'd pass the function by reference instead, but Java 11 doesn't let you do that
     public static double runTests(String name, int function, ArrayList<Double> resultAll,
-        ArrayList<Double> resultMin, double min, int numTests, boolean printOutput){
+        ArrayList<Double> resultMin, double min, int numTests, boolean printOutput)
+    {
         
         ArrayList<Double> temp;
         for(int i = 0; i < numTests; i++){
@@ -54,7 +55,7 @@ public class Main
                     break;
                 default:
                     System.out.println("Function number " + function + " is not a valid option.");
-                    return -1;  //Can't exit here or else Java complains about tempt being undefined later on...
+                    return -1;  //Can't exit here or else Java complains about temp being undefined later on...
                                 //return works though
             }
 
