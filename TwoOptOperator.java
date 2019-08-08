@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+// Class which implements the TwoOptOperator. 
 public class TwoOptOperator implements ILocalSearchOperator
 {
+	// Implements the TwoOptOperator. 
 	public ArrayList<Integer> mutate(ArrayList<Integer> permutation, int first, int second)
 	{
 		ArrayList<Integer> twoOpt = new ArrayList<Integer>();
