@@ -24,25 +24,25 @@ public class Main
         int numTests = 30;
 
 		JumpLocalSearch jumpSearch = new JumpLocalSearch();
-        jumpMin = runTests("Jump", jumpSearch, jumpResultAll, jumpResultMin,
+        jumpMin = runTests(jumpSearch, jumpResultAll, jumpResultMin,
             jumpMin, numTests, true);
 
 		ExchangeLocalSearch exchangeSearch = new ExchangeLocalSearch();
-        exchangeMin = runTests("Exchange", exchangeSearch, exchangeResultAll, exchangeResultMin,
+        exchangeMin = runTests(exchangeSearch, exchangeResultAll, exchangeResultMin,
             exchangeMin, numTests, true);
 
 		TwoOptLocalSearch twoOpt = new TwoOptLocalSearch();
-        twoOptMin = runTests("2-Opt", twoOpt, twoOptResultAll, twoOptResultMin,
+        twoOptMin = runTests(twoOpt, twoOptResultAll, twoOptResultMin,
             twoOptMin, numTests, true);
 
         return;
     }
 
     //I'd pass the function by reference instead, but Java 11 doesn't let you do that
-    public static double runTests(String name, ILocalSearch function, ArrayList<Double> resultAll,
+    public static double runTests(ILocalSearch function, ArrayList<Double> resultAll,
         ArrayList<Double> resultMin, double min, int numTests, boolean printOutput)
     {
-        
+        String name = function.name();
         ArrayList<Double> temp = function.search(tsp);
         for(int i = 0; i < numTests; i++)
         {
