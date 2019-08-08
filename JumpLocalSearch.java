@@ -4,8 +4,13 @@ import java.util.Collections;
 // Implements jump local search in the IlocalSearch interface. 
 public class JumpLocalSearch implements ILocalSearch
 {
+	// Default constructor
+	public JumpLocalSearch()
+	{
+	}
+	
 	// Jump operation.
-    public static ArrayList<Integer> jumpOp(ArrayList<Integer> permutation, int start, int end)
+    private static ArrayList<Integer> jumpOp(ArrayList<Integer> permutation, int start, int end)
     {
         for (int i = start; i < end; i++)
         {
