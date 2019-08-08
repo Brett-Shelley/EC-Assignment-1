@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class Main
 {
@@ -94,23 +93,10 @@ public class Main
         return mean;
     }
 
-    // Generates a random permutation based on the TSP.
-    public static ArrayList<Integer> initPermutation()
-    {
-        ArrayList<Integer> permutation = new ArrayList<Integer>();
-        Random rand = new Random();
-        for (int i = 0; i < tsp.getDimension(); i++)
-        {
-            permutation.add(i);
-        }
-        Collections.shuffle(permutation, rand);
-        return permutation;
-    }
-
     // Jump Local Search.
     public static ArrayList<Double> jumpLS()
     {
-        ArrayList<Integer> current = initPermutation();
+        ArrayList<Integer> current = tsp.initPermutation();
         ArrayList<Integer> next = new ArrayList<Integer>();
         ArrayList<Integer> nextBest = new ArrayList<Integer>();
 
@@ -164,7 +150,7 @@ public class Main
     // Exchange Local Search.
     public static ArrayList<Double> exchangeLS()
     {
-        ArrayList<Integer> current = initPermutation();
+        ArrayList<Integer> current = tsp.initPermutation();
         ArrayList<Integer> next = new ArrayList<Integer>();
         ArrayList<Integer> nextBest = new ArrayList<Integer>();
 
@@ -208,7 +194,7 @@ public class Main
     // 2-Opt Local Search
     public static ArrayList<Double> twoOptLS()
     {
-        ArrayList<Integer> current = initPermutation();
+        ArrayList<Integer> current = tsp.initPermutation();
         ArrayList<Integer> next = new ArrayList<Integer>();
         ArrayList<Integer> nextBest = new ArrayList<Integer>();
 

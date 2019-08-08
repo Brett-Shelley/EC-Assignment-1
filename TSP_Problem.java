@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class TSP_Problem
 {
@@ -102,5 +104,18 @@ public class TSP_Problem
             }
         }
         return total;
+    }
+    
+    // Generates a random permutation based on the TSP.
+    public ArrayList<Integer> initPermutation()
+    {
+        ArrayList<Integer> permutation = new ArrayList<Integer>();
+        Random rand = new Random();
+        for (int i = 0; i < getDimension(); i++)
+        {
+            permutation.add(i);
+        }
+        Collections.shuffle(permutation, rand);
+        return permutation;
     }
 }
