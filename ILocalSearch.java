@@ -7,5 +7,6 @@ public interface ILocalSearch
 {
 	public ArrayList<Double> search(TSP_Problem problem);
 	
+	// Returns the name of the local search implemented.
 	public String name();
 }

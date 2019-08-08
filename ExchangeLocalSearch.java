@@ -4,6 +4,8 @@ import java.util.Collections;
 // Implements jump local search in the IlocalSearch interface. 
 public class ExchangeLocalSearch implements ILocalSearch
 {
+	// Performs local search on the passed travelling salesman problem
+	// Using exchange to define the neighbourhood. 
 	public ArrayList<Double> search(TSP_Problem problem)
 	{
 		ArrayList<Integer> current = problem.initPermutation();

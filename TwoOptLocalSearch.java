@@ -23,6 +23,8 @@ public class TwoOptLocalSearch implements ILocalSearch
         return twoOpt;
     }
     
+    // Performs a local search on the provided travelling salesman problem
+    // by using two-opt to define the neighbourhood. 
 	public ArrayList<Double> search(TSP_Problem problem)
 	{
 		ArrayList<Integer> current = problem.initPermutation();
