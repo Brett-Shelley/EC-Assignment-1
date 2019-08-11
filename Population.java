@@ -3,23 +3,36 @@ import java.util.Collections;
 
 public class Population
 {
-    private ArrayList<ArrayList<coords>> parents;
+    //arrayList of solutions
+    private ArrayList<Solution> parents;
 
-    //still incomplete, but should create an initial population of desired size
-    //returns an arraylist of solutions
-    public Population(ArrayList<coords> tspCoords, int size)
+    // Creates an initial population of desired size
+    public Population(ArrayList<Coords> tspCoords, int size)
     {
         for(int i = 0; i < size; i++)
         {
-            parents.add(Collections.shuffle(tspCoords));
+            Collections.shuffle(tspCoords);
+            Solution sol = new Solution(tspCoords);
+            parents.add(sol);
         }
     }
 
-
     //get the population
-    public ArrayList<ArrayList<coords>> getParents()
+    public ArrayList<Solution> getParents()
     {
         return parents;
+    }
+
+    //add a solution to the parents list
+    public void addToParents(Solution input)
+    {
+        parents.add(input);
+    }
+
+    //replace the parents list
+    public void replaceParents(ArrayList<Solution> input)
+    {
+        parents = new ArrayList<Solution>(input);
     }
 
 }
