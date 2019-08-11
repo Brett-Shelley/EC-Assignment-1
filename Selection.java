@@ -23,7 +23,7 @@ public class Selection
         }
 
         // Select n individuals with probability assigned
-        int numSurvivors = 1; // Used to keep certain number of next generation
+        int numSurvivors = 1; // Number of next generation, equal to number of solutions returned
         double probability = sum;
         double randomProb;
         //ArrayList<ArrayList<Integer>> survivors;
@@ -92,8 +92,42 @@ public class Selection
     
     public ArrayList<ArrayList<Integer>> elitismSelection(ArrayList<ArrayList<Integer>> solutions)
     {
-        // code here
-        ArrayList<ArrayList<Integer>> survivors = new ArrayList<ArrayList<Integer>> ();
-        return survivors;
+        
+        ArrayList<ArrayList<Integer>> population = solutions;
+        ArrayList<ArrayList<Integer>> elites = new ArrayList<ArrayList<Integer>>();
+        int numElites = 3; // The number of elites present in a population
+
+        // Get all fitness scores
+        ArrayList<Double> fitness = new ArrayList<Double>(population.size());
+        for (int i = 0; i < population.size(); i++)
+        {
+            fitness.add(tsp.getTotalDistance(population.get(i)));
+        }
+
+        // Find elites and seperate from population
+        for (int i = 0; i < numElites; i++)
+        {
+            double best = fitness.get(0);
+            int indexBest = 0;
+            for (int j = 1; j < population.size(); j++) {
+                if (best > fitness.get(j)) 
+                {
+                    best = fitness.get(j);
+                    indexBest = i;
+                }
+            }
+            // Add elites to seperate list
+            elites.add(population.get(indexBest));
+            population.remove(indexBest);
+            fitness.remove(indexBest);
+        }
+
+        // Elites now seperated, what selection method to use?
+        
+
+        // Add elites to the rest of population
+        population.addAll(elites);
+
+        return population;
     }
 }
