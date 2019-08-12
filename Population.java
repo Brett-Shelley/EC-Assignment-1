@@ -1,6 +1,20 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+
+/*-----------Population Interface--------------------------
+
+1.  creation of a population requires an array list of Coords and an integer size
+    will create a population of the input size.
+
+2.  getParents() returns an array list of solutions. This is your population.
+
+3.  addToParents(Solution) will add a solution to the end of the population array list
+
+4.  replaceParents(ArrayList<Solution>) will replace the current population with the input array list
+
+---------------------------------------------------------- */
+
 public class Population
 {
     //arrayList of solutions
@@ -9,6 +23,7 @@ public class Population
     // Creates an initial population of desired size
     public Population(ArrayList<Coords> tspCoords, int size)
     {
+        //shuffle tspCoords and create a new Solution. Add that solution to the population i times.
         for(int i = 0; i < size; i++)
         {
             Collections.shuffle(tspCoords);
