@@ -1,4 +1,18 @@
 import java.util.ArrayList;
+import java.util.Collections;
+
+
+/*--------------Solution Interface-------------------
+
+1.  creation of a solution requires an array list of Coords.
+
+2. getScore() returns a double reperesenting the solutions fitness level
+
+3. getPermutation() returns an ArrayList<Coords>. This is the individual solution path.
+
+4. swap(int a, int b) swaps the two points in the permutation/solution path. 
+
+----------------------------------------------------*/
 
 public class Solution
 {
@@ -12,28 +26,48 @@ public class Solution
         score = getTotalDistance();
     }
     
-    // Getter Functions
+    //get the score
     public double getScore()
     {
         return score;
     }
 
+    //get the permutation
     public ArrayList<Coords> getPermutation()
     {
         return permutation;
     }
 
+    //swaps any two points in the permutation
+    public void swap(int a, int b)
+    {
+        //keep a/b in bounds. if < 0 set to 0, if > than the permutation length, set a/b to the last element
+        if(a < 0) {a = 0;}
+        else if(a >= permutation.size()) {a = permutation.size() - 1;}
+
+        if(b < 0) {b = 0;}
+        else if(b >= permutation.size()) {b = permutation.size() - 1;}
+
+        //swap ath and bth element
+        Collections.swap(permutation, a, b);
+    }
+
+
+
     // Helper function to getTotalDistance, calculates distance between two points
     private double getDistance(int i, int j)
     {
+        //get the x and y coordinates of the nodes at the ith and jth elements
         double startX = permutation.get(i).getX();
         double endX = permutation.get(j).getX();
         double startY = permutation.get(i).getY();
         double endY = permutation.get(j).getY();
 
+        //get the difference between the x and y coordinates at the ith and jth elements
         double diffX = Math.abs(startX - endX);
         double diffY = Math.abs(startY - endY);
 
+        //calculate the euclidean distance between the two points sqrt(diffX^2 + diffY^2)
         return Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
     }
 
@@ -41,11 +75,14 @@ public class Solution
     private double getTotalDistance()
     {
         double score = 0;
+
+        //calculate the euclidean distance between each node in the permutation and add to the total euclidean distance traveled
         int length = permutation.size() - 1;
         for (int i = 0; i < length; i++)
         {
             score += getDistance(i, i + 1);
         }
+
         return score;
     }
 }
