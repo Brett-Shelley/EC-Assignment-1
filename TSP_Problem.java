@@ -110,7 +110,7 @@ public class TSP_Problem
     public ArrayList<Integer> initPermutation()
     {
         ArrayList<Integer> permutation = new ArrayList<Integer>();
-        Random rand = new Random();
+        Random rand = RandomNumberGenerator.getRandom();
         for (int i = 0; i < getDimension(); i++)
         {
             permutation.add(i);
