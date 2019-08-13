@@ -50,6 +50,9 @@ public class Solution
 
         //swap ath and bth element
         Collections.swap(permutation, a, b);
+
+        //recalculate score
+        score = getTotalDistance();
     }
 
 
@@ -86,3 +89,7 @@ public class Solution
         return score;
     }
 }
+
+
+
+
