@@ -3,49 +3,45 @@ import java.util.Random;
 
 public class FitnessProportionate implements ISelection
 {
-    TSP_Problem tsp;
+    Population populationObject;
     
-    // Keeps the solutions with higher fitness score with a higher probability 
-    public ArrayList<ArrayList<Integer>> select(ArrayList<ArrayList<Integer>> solutions)
+    // Keeps the solutions with higher fitness score with a higher probability
+    // numSurvivors variable is number of solutions in population
+    public Population select(Population solutions, int numSurvivors)
     {
-        // Get all fitness scores
-        ArrayList <Double> fitness = new ArrayList <Double> (solutions.size());
-        for (int i = 0; i < solutions.size(); i++)
-        {
-            fitness.add(tsp.getTotalDistance(solutions.get(i)));
-        }
+        // Initialise population array
+        ArrayList<Solution> population = populationObject.getParents();
 
         // Find sum of fitness
         double sum = 0;
-        for (int i = 0; i < fitness.size(); i++)
+        for (int i = 0; i < population.size(); i++)
         {
-            sum += fitness.get(i);
+            sum += population.get(i).getScore();
         }
 
         // Select n individuals with probability assigned
-        int numSurvivors = 1; // Number of next generation, equal to number of solutions returned
         double probability = sum;
         double randomProb;
-        //ArrayList<ArrayList<Integer>> survivors;
-        ArrayList<ArrayList<Integer>> survivors = new ArrayList<ArrayList<Integer>> ();
+        ArrayList<Solution> survivors = new ArrayList<Solution> ();
         for (int i = 0; i < numSurvivors; i++)
         {
             Random rand = new Random();
             randomProb = rand.nextDouble() * sum;
-            for (int j = 0; j < fitness.size(); j++)
+            for (int j = 0; j < population.size(); j++)
             {
                 if (probability < randomProb)
                 {
-                    survivors.add(solutions.get(j));
-                    solutions.remove(j);
+                    survivors.add(population.get(j));
+                    population.remove(j);
                     break;
                 }
                 else
                 {
-                    probability -= fitness.get(fitness.size() - j);
+                    probability -= population.get(population.size() - j).getScore();
                 }
             }
         }
-        return survivors;
+        populationObject.replaceParents(survivors);
+        return populationObject;
     }
 }

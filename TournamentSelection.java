@@ -3,45 +3,43 @@ import java.util.Random;
 
 public class TournamentSelection implements ISelection
 {
-    TSP_Problem tsp;
+    Population populationObject;
 
     // Keeps solutions with higher fitness scores if selected in tournaments
-    public ArrayList<ArrayList<Integer>> select(ArrayList<ArrayList<Integer>> solutions)
+    // Tournaments variable is equal to number of solutions returned
+    public Population select(Population solutions, int tournaments)
     {
-        int tournaments = 10; // Number of tournaments run, equal to number of solutions returned
         int n = 3; // Number of individuals in tournament
-        ArrayList<ArrayList<Integer>> survivors = new ArrayList<ArrayList<Integer>> ();
+        // Initialise population array
+        ArrayList<Solution> population = populationObject.getParents();
+        ArrayList<Solution> survivors = new ArrayList<Solution> ();
+        
         for (int j = 0; j < tournaments; j++)
         {
             // Select n individuals randomly from solutions pool
             Random rand = new Random();
-            ArrayList<ArrayList<Integer>> competitors = new ArrayList<ArrayList<Integer>>();
+            ArrayList<Solution> competitors = new ArrayList<Solution>();
             for (int i = 0; i < n; i++)
             {
-                int randomProb = rand.nextInt(solutions.size());
-                competitors.add(solutions.get(randomProb));
-            }
-
-            // Get all fitness scores
-            ArrayList<Double> fitness = new ArrayList<Double>(competitors.size());
-            for (int i = 0; i < competitors.size(); i++)
-            {
-                fitness.add(tsp.getTotalDistance(competitors.get(i)));
+                int randomProb = rand.nextInt(population.size());
+                competitors.add(population.get(randomProb));
             }
 
             // Keep the individual with best fitness score
-            double best = fitness.get(0);
+            double best = competitors.get(0).getScore();
             int indexBest = 0;
             for (int i = 1; i < competitors.size(); i++)
             {
-                if (best > fitness.get(i))
+                if (best > competitors.get(i).getScore())
                 {
-                    best = fitness.get(i);
+                    best = competitors.get(i).getScore();
                     indexBest = i;
                 }
             }
             // Add individual to survivors
             survivors.add(competitors.get(indexBest));
         }
-        return survivors;
+        populationObject.replaceParents(survivors);
+        return populationObject;
     }
+}
