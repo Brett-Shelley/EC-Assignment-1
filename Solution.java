@@ -26,6 +26,11 @@ public class Solution
         score = getTotalDistance();
     }
     
+    public int size()
+    {
+    	return permutation.size();
+    }
+    
     //get the score
     public double getScore()
     {
