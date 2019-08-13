@@ -60,7 +60,16 @@ public class Solution
         score = getTotalDistance();
     }
 
-
+	// Prints a line container each of the coordinates, followed by the trip length. 
+	public void print()
+	{
+		for (Coords point : permutation)
+		{
+			System.out.print("(" + point.getX() + ", " + point.getY() + ") -> "); 
+		}
+		System.out.print("Total: " + score + "\n");
+		System.out.println("-------------------------------------");
+	}
 
     // Helper function to getTotalDistance, calculates distance between two points
     private double getDistance(int i, int j)
