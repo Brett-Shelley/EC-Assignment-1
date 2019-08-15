@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 
-public class ElitismSelection implements ISelection
+public class ElitismSelection
 {
     Population populationObject;
 
     // Keeps the solutions with highest fitness scores
     // numElites variable is number of elites present in a population
-    public Population select(Population solutions, int numElites)
+    // Method determines what selection algorithm to use
+    // input "fitness" or "tournament" for corresponding selection
+    public Population select(Population solutions, int numElites, String method)
     {
         // Initialise population array
         ArrayList<Solution> population = populationObject.getParents();
@@ -28,13 +30,26 @@ public class ElitismSelection implements ISelection
             elites.add(population.get(indexBest));
             population.remove(indexBest);
         }
+        populationObject.replaceParents(population);
 
-        // Elites now seperated, what selection method to use?
-        
+        // Elites now seperated, use input selection method
+        if (method == "fitness")
+        {
+            FitnessProportionate fit = new FitnessProportionate();
+            populationObject = fit.select(populationObject, 10 - numElites);
+        }
+        else if (method == "tournament")
+        {
+            TournamentSelection trnmt = new TournamentSelection();
+            populationObject = trnmt.select(populationObject, 10 - numElites);
+        }
 
         // Add elites to the rest of population
-        population.addAll(elites);
-        populationObject.replaceParents(population);
+        for (int i = 0; i < elites.size(); i++)
+        {
+            populationObject.addToParents(elites.get(i));
+        }
+
         return populationObject;
     }
 }
