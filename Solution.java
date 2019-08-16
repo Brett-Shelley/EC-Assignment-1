@@ -31,6 +31,20 @@ public class Solution
     	return permutation.size();
     }
     
+    public Coords get(int i)
+    {
+    	if (i >= permutation.size())
+    	{
+    		i = permutation.size();
+    	}
+    	if (i < 0)
+    	{
+    		i = 0;
+    	}
+    	
+    	return permutation.get(i);
+    }
+    
     //get the score
     public double getScore()
     {
