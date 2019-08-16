@@ -1,4 +1,4 @@
 public interface ISelection
 {
-	public Population select(Population solutions, int numSurvivors);
+	public Population select(TSP_Problem tsp, Population solutions, int numSurvivors);
 }

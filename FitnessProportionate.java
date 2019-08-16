@@ -7,8 +7,10 @@ public class FitnessProportionate implements ISelection
     
     // Keeps the solutions with higher fitness score with a higher probability
     // numSurvivors variable is number of solutions in population
-    public Population select(Population solutions, int numSurvivors)
+    public Population select(TSP_Problem tsp, Population solutions, int numSurvivors)
     {
+        populationObject = new Population(tsp.getCoords(), tsp.getCoords().size());
+
         // Initialise population array
         ArrayList<Solution> population = populationObject.getParents();
 
@@ -37,7 +39,7 @@ public class FitnessProportionate implements ISelection
                 }
                 else
                 {
-                    probability -= population.get(population.size() - j).getScore();
+                    probability -= population.get(population.size() - j - 1).getScore();
                 }
             }
         }

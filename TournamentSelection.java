@@ -7,8 +7,9 @@ public class TournamentSelection implements ISelection
 
     // Keeps solutions with higher fitness scores if selected in tournaments
     // Tournaments variable is equal to number of solutions returned
-    public Population select(Population solutions, int tournaments)
+    public Population select(TSP_Problem tsp, Population solutions, int tournaments)
     {
+        populationObject = new Population(tsp.getCoords(), tsp.getCoords().size());
         int n = 3; // Number of individuals in tournament
         // Initialise population array
         ArrayList<Solution> population = populationObject.getParents();

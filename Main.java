@@ -4,10 +4,12 @@ import java.util.ArrayList;
 public class Main
 {
     private static TSP_Problem tsp;
+    private static Population pop;
 
     public static void main(String[] args)
     {
         tsp = new TSP_Problem("./Problems/eil51.tsp");
+        pop = new Population(tsp.getCoords(), tsp.getCoords().size());
 
         ArrayList<Double> jumpResultAll = new ArrayList<Double>();
         ArrayList<Double> jumpResultMin = new ArrayList<Double>();
@@ -34,6 +36,21 @@ public class Main
 		TwoOptOperator twoOpt = new TwoOptOperator();
         twoOptMin = runTests(twoOpt, twoOptResultAll, twoOptResultMin,
             twoOptMin, numTests, true);
+
+        System.out.println("Mean fitness before selection: " + getPopulationScore(pop));
+        Population testPop = pop;
+
+        FitnessProportionate fitProp = new FitnessProportionate();
+        testPop = fitProp.select(tsp, pop, 10);
+        System.out.println("Mean fitness after fitness selection: " + getPopulationScore(testPop));
+
+        TournamentSelection tournament = new TournamentSelection();
+        testPop = tournament.select(tsp, pop, 10);
+        System.out.println("Mean fitness after tournament selection: " + getPopulationScore(testPop));
+
+        ElitismSelection elitism = new ElitismSelection();
+        testPop = elitism.select(tsp, pop, 10);
+        System.out.println("Mean fitness after elitism selection: " + getPopulationScore(testPop));
 
         return;
     }
@@ -79,5 +96,17 @@ public class Main
         }
         mean = mean / values.size();
         return mean;
+    }
+
+    public static Double getPopulationScore(Population solutions)
+    {
+        Double avgScore = 0.0;
+        ArrayList<Solution> popScores = solutions.getParents();
+        for (int i = 0; i < solutions.getParents().size(); i++)
+        {
+            avgScore += popScores.get(i).getScore();
+        }
+        avgScore = avgScore / solutions.getParents().size();
+        return avgScore;
     }
 }

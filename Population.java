@@ -23,6 +23,7 @@ public class Population
     // Creates an initial population of desired size
     public Population(ArrayList<Coords> tspCoords, int size)
     {
+        parents = new ArrayList<Solution>();
         //shuffle tspCoords and create a new Solution. Add that solution to the population i times.
         for(int i = 0; i < size; i++)
         {
