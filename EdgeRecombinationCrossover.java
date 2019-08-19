@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Random;
 
 
@@ -36,15 +36,18 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
         }
     }
 
-    private void removeTableEntry(ArrayList<ArrayList<Integer>> table, int index){
+    private void addTableEntry(HashMap<Integer,Integer> map, int index, int key){
+        int count = map.containsKey(key) ? map.get(key) : 0;
+        map.put(key, count + 1);  //If wasn't present, this is set to 1, else its incremented
+
+        return;
+    }
+
+    private void removeCityFromTable(ArrayList<HashMap<Integer,Integer>> table, int index){
         table.remove(index);
         for(int i = 0; i < table.size(); i++){
-            while(true){
-                int value = table.get(i).indexOf(index);
-                if(value == -1){
-                    break;
-                }
-                table.get(i).remove(value);
+            if(table.get(i).containsKey(index)){
+                table.get(i).remove(index);
             }
         }
 
@@ -54,20 +57,14 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
     private Solution crossoverhelper(Solution parentOne, Solution parentTwo)
     {
         ArrayList<Coords> child = new ArrayList<Coords>();
-        HashSet<Coords> points_in_child = new HashSet<Coords>();
         int size = parentOne.size();
         int parent1_index = 0;  //Otherwise Java complains it may not be there
         int parent2_index = 0;
 
-        //Child starts off filled with null points 
-        for (int i = 0; i < size; i++){
-            child.add(null);
-        }
-
         //Create the neighbours table and populate it
-        ArrayList<ArrayList<Integer>> table = new ArrayList<ArrayList<Integer>>(size);
+        ArrayList<HashMap<Integer,Integer>> table = new ArrayList<HashMap<Integer,Integer>>();
         for(int i = 0; i < size; i++){
-            ArrayList<Integer> temp = new ArrayList<Integer>(4);
+            HashMap<Integer, Integer> temp = new HashMap<Integer, Integer>();
 
             //Find the indexes of this element for both parents
                 //Use parent 1 as source
@@ -80,15 +77,13 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             }
 
             //Add the 4 neighbours (If we get a repeated number, that means both parents share a neighbour)
-            temp.add(shift(parent1_index, size, false));
-            temp.add(shift(parent1_index, size, true));
-            temp.add(shift(parent2_index, size, false));
-            temp.add(shift(parent2_index, size, true));
+            addTableEntry(temp, i, shift(parent1_index, size, false));
+            addTableEntry(temp, i, shift(parent1_index, size, true));
+            addTableEntry(temp, i, shift(parent2_index, size, false));
+            addTableEntry(temp, i, shift(parent2_index, size, true));
 
             table.add(temp);
         }
-
-        // table.get(element).get(neighbour);
 
         Random rand;
         int cities_left = size;
@@ -106,23 +101,24 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
                 rand = RandomNumberGenerator.getRandom();
                 city = rand.nextInt(cities_left);
             }
-            else if(){
-                ;
-            }
-            else if(){
-                ;
-            }
-            else if(){
-                ;
-            }
+            // else if(){
+            //     ;
+            // }
+            // else if(){
+            //     ;
+            // }
+            // else if(){
+            //     ;
+            // }
             else{   //Failsafe
                 rand = RandomNumberGenerator.getRandom();
                 city = rand.nextInt(cities_left);
             }
 
             //The add that city to our list and delete its stuff from the table
-            child.set(i, city);
-            removeTableEntry(table, city);
+            // child.set(i, city);
+            child.add(parentOne.get(city));
+            removeCityFromTable(table, city);
             cities_left--;
 
         }
