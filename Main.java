@@ -35,6 +35,32 @@ public class Main
         twoOptMin = runTests(twoOpt, twoOptResultAll, twoOptResultMin,
             twoOptMin, numTests, true);
 
+
+                // This below change should NEVER be pushed to master - if you see this in a pull request
+                // give a negative review stating this should be removed.
+                    //But its here for easier testing for now
+                ArrayList<Coords> list = tsp.getCoords();
+
+                Population pop = new Population(list, 2);
+
+                //Getting the two parent solutions out
+                Solution solOne = pop.getParents().get(0);
+                Solution soltwo = pop.getParents().get(1);
+
+                //Create an array for the children solutions
+                ArrayList<Solution> children = new ArrayList<Solution>();
+
+                //Using them for EdgeRecombinationCrossover
+                EdgeRecombinationCrossover cross = new EdgeRecombinationCrossover();
+                children = cross.crossover(solOne, soltwo);
+
+                solOne.print();
+                soltwo.print();
+                //We only have 2 children because we had 2 parents
+                children.get(0).print();
+                children.get(1).print();
+
+
         return;
     }
 
