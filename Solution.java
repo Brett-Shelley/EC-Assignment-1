@@ -45,6 +45,13 @@ public class Solution
     	return permutation.get(i);
     }
     
+    // Returns the index of point, or -1 if it is not
+    // in the sequence. 
+    public int index_of(Coords point)
+    {
+    	return permutation.indexOf(point);
+    }
+    
     //get the score
     public double getScore()
     {
