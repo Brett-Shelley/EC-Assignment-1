@@ -25,15 +25,15 @@ public class Main
 
         int numTests = 30;
 
-		JumpOperator jumpSearch = new JumpOperator();
+        JumpOperator jumpSearch = new JumpOperator();
         jumpMin = runTests(jumpSearch, jumpResultAll, jumpResultMin,
             jumpMin, numTests, true);
 
-		ExchangeOperator exchangeSearch = new ExchangeOperator();
+        ExchangeOperator exchangeSearch = new ExchangeOperator();
         exchangeMin = runTests(exchangeSearch, exchangeResultAll, exchangeResultMin,
             exchangeMin, numTests, true);
 
-		TwoOptOperator twoOpt = new TwoOptOperator();
+        TwoOptOperator twoOpt = new TwoOptOperator();
         twoOptMin = runTests(twoOpt, twoOptResultAll, twoOptResultMin,
             twoOptMin, numTests, true);
 
