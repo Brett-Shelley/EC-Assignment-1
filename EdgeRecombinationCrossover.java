@@ -160,8 +160,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
         Random rand;
         int city_id;   //The city we will add and choose to delete
                     //Need a seperate var to keep track of the original values
-        // int remaining_city_remove_index;
-        int remaining_cities = size;
+        // int remaining_cities = size;
         HashMap<Integer, Integer> previousCityPaths = null;
         for(int i = 0; i < size; i++){
             System.out.println("i: " + i);
@@ -175,7 +174,8 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             if(i == 0 || i == size - 1){    //For first and last element
                 rand = RandomNumberGenerator.getRandom();
                 // city_id = rand.nextInt(remainingCities.size());
-                city_id = rand.nextInt(remaining_cities);
+                // city_id = rand.nextInt(remaining_cities);
+                city_id = remainingCities.get(rand.nextInt(remainingCities.size()));
                 System.out.println("Initial or last city is: " + city_id); //Note this is zero indexed
             }
             else{   //Note, the first time we come in here, we have 1 less than the initial number of cities to choose from
@@ -192,9 +192,14 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
                 // return null;
 
                 if(edges.size() <= 0){  //No edges left
+                    System.out.println("No edges left, choosing random from remaining elements");
                     rand = RandomNumberGenerator.getRandom();
-                    // city_id = rand.nextInt(remainingCities.size());
-                    city_id = rand.nextInt(remaining_cities);
+                    city_id = remainingCities.get(rand.nextInt(remainingCities.size()));
+                    // city_id = rand.nextInt(remaining_cities);
+                }
+                else if(edges.size() == 1){
+                    System.out.println("Only 1 edge available");
+                    city_id = edges.get(0);
                 }
                 else{
                     System.out.println("A: " + edges.size());
@@ -226,10 +231,16 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             previousCityPaths = table.get(city_id);
             child.add(parentOne.get(city_id));
             removeCityFromTableEdges(table, city_id);
-            remaining_cities--;
-            System.out.println("Pass D");
+            // if(i != size - 1){
+                remainingCities.remove(remainingCities.indexOf(city_id));   //Since this is always from 0 to n-1 this should work fine
+            // }
+            // else{
+                // remainingCities.remove(0);
+            // }
 
         }
+
+        System.out.println("\n------------------------\n");
 
         Solution result = new Solution(child);
         

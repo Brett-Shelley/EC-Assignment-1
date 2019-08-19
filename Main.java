@@ -39,6 +39,8 @@ public class Main
                 // This below change should NEVER be pushed to master - if you see this in a pull request
                 // give a negative review stating this should be removed.
                     //But its here for easier testing for now
+                TSP_Problem tsp = new TSP_Problem("./Problems/dav10.tsp");
+
                 ArrayList<Coords> list = tsp.getCoords();
 
                 Population pop = new Population(list, 2);   //Causes a null pointer error
@@ -55,11 +57,16 @@ public class Main
                 children = cross.crossover(solOne, soltwo);
 
                 System.out.println("Execution complete");
-                // solOne.print();
-                // soltwo.print();
-                //We only have 2 children because we had 2 parents
-                // children.get(0).print();
-                // children.get(1).print();
+
+                System.out.println("\nParent 1");
+                solOne.print();
+                System.out.println("\nParent 2");
+                soltwo.print();
+                // We only have 2 children because we had 2 parents
+                System.out.println("\nChild 1");
+                children.get(0).print();
+                System.out.println("\nChild 2");
+                children.get(1).print();
 
 
         return;
