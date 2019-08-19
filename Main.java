@@ -41,7 +41,7 @@ public class Main
                     //But its here for easier testing for now
                 ArrayList<Coords> list = tsp.getCoords();
 
-                Population pop = new Population(list, 2);
+                Population pop = new Population(list, 2);   //Causes a null pointer error
 
                 //Getting the two parent solutions out
                 Solution solOne = pop.getParents().get(0);
