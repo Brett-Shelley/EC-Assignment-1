@@ -54,9 +54,10 @@ public class Main
                 EdgeRecombinationCrossover cross = new EdgeRecombinationCrossover();
                 children = cross.crossover(solOne, soltwo);
 
+                System.out.println("Execution complete");
                 // solOne.print();
                 // soltwo.print();
-                // //We only have 2 children because we had 2 parents
+                //We only have 2 children because we had 2 parents
                 // children.get(0).print();
                 // children.get(1).print();
 
