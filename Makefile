@@ -1,7 +1,7 @@
 all: compile run
 
 compile:
-	javac Main.java
+	javac -Xlint Main.java
 
 run:
 	java Main
