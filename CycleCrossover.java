@@ -24,13 +24,9 @@ public class CycleCrossover implements ITwoParentCrossover
         ArrayList<ArrayList<Coords>> children = new ArrayList<ArrayList<Coords>>();
         children.add(childOne);
         children.add(childTwo);
-        ArrayList<Solution> parents = new ArrayList<Solution>();
-        parents.add(parentOne);
-        parents.add(parentTwo);
         
         int current_index = 0;
         int child_index = 0;
-        int parent_index = 0;
         int child_size = 0;
         
         while (child_size < size)
@@ -43,24 +39,19 @@ public class CycleCrossover implements ITwoParentCrossover
                 continue;
             }
             
-            // Grab the parents and children.
+            // Grab the children.
             // Note that childA could be childOne or childTwo
             ArrayList<Coords> childA = children.get(child_index);
             ArrayList<Coords> childB = children.get((child_index + 1) % 2);
             
-            Solution parentA = parents.get(parent_index);
-            Solution parentB = parents.get((parent_index + 1) % 2);
-            
             // Copy current_index to the children.
-            childA.set(current_index, parentA.get(current_index));
-            childB.set(current_index, parentB.get(current_index));
+            childA.set(current_index, parentOne.get(current_index));
+            childB.set(current_index, parentTwo.get(current_index));
             
             child_size++;
             
             // Find the next index in the loop.
-            current_index = parentA.index_of(childB.get(current_index));
-            
-            
+            current_index = parentOne.index_of(childB.get(current_index));
             
             if (childA.get(current_index) != null)
             {
@@ -70,9 +61,6 @@ public class CycleCrossover implements ITwoParentCrossover
                 // the parents. 
                 continue;
             }
-            
-            // Flip the parents if a loop did not end. 
-            //parent_index = (parent_index + 1) % 2;
         }
         
         ArrayList<Solution> result = new ArrayList<Solution>();
