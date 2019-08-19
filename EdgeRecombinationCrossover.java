@@ -55,6 +55,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
     }
 
     private ArrayList<Integer> getCityEdges(ArrayList<HashMap<Integer,Integer>> table, int index){
+        System.out.println(index);
         ArrayList<Integer> edges = new ArrayList<Integer>();
         edges.addAll(table.get(index).keySet());
         return edges;
@@ -64,15 +65,18 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
         //The pool should be the HashMap of edges for current head
     private ArrayList<Integer> shortestLists(ArrayList<HashMap<Integer,Integer>> table, ArrayList<Integer> pool){
         ArrayList<Integer> subPool = new ArrayList<Integer>();
-        // int shortestElement = 0;
-        // for(int i = 0; i < pool.size(); i++){
-        //     // if(pool)
-        // }
-        // for(int i = 0; i < pool.size(); i++){
-        //     if(){   //Has the shortest list
-        //         subPool.add(pool.get(i));
-        //     }
-        // }
+        int shortestEdgesElement = 0;
+        for(int i = 0; i < pool.size(); i++){
+            if(table.get(pool.get(i)).size() < shortestEdgesElement){
+                shortestEdgesElement = table.get(pool.get(i)).size();
+            }
+        }
+
+        for(int i = 0; i < pool.size(); i++){
+            if(table.get(pool.get(i)).size() == shortestEdgesElement){
+                subPool.add(pool.get(i));
+            }
+        }
         return subPool;
     }
 
@@ -87,7 +91,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             for(int j = 0; j <= 2; j++){
                 if(table.get(pool.get(i)).containsValue(j) && most_common_edges < j){
                     most_common_edges = j;
-                }   
+                }
             }
         }
 
@@ -156,6 +160,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
                 //Then reduce that same list to only contain those with the shortest path
                 //If the list is still not one, choose randomly from the list (The list shouldn't be able to be zero here)
 
+                System.out.println(previous_city);
                 ArrayList<Integer> edges = getCityEdges(table, previous_city);
 
                 if(edges.size() <= 0){  //No edges left
