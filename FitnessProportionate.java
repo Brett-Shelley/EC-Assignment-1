@@ -14,7 +14,7 @@ public class FitnessProportionate implements ISelection
         double sum = 0;
         for (int i = 0; i < population.size(); i++)
         {
-            sum += population.get(i).getScore();
+            sum += 1/population.get(i).getScore();
         }
 
         // Select n individuals with probability assigned
@@ -23,29 +23,20 @@ public class FitnessProportionate implements ISelection
         ArrayList<Solution> survivors = new ArrayList<Solution> ();
         for (int i = 0; i < numSurvivors; i++)
         {
-            probability = sum;
+            probability = 0;
             Random rand = RandomNumberGenerator.getRandom();
             randomProb = rand.nextDouble() * sum;
             for (int j = 0; j < population.size(); j++)
             {
-                if (probability <= randomProb)
+                if (probability > randomProb)
                 {
-                    if (j == 0)
-                    {
-                        survivors.add(population.get(j));
-                        population.remove(j);
-                        break;
-                    }
-                    else
-                    {
-                        survivors.add(population.get(j - 1));
-                        population.remove(j - 1);
-                        break;
-                    }
+                    survivors.add(population.get(j));
+                    population.remove(j);
+                    break;
                 }
                 else
                 {
-                    probability -= population.get(population.size() - j - 1).getScore();
+                    probability += 1/population.get(population.size() - j - 1).getScore();
                 }
             }
         }
