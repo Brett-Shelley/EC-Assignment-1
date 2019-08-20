@@ -9,48 +9,72 @@ public class Main
     public static void main(String[] args)
     {
         tsp = new TSP_Problem("./Problems/eil51.tsp");
-        pop = new Population(tsp.getCoords(), tsp.getCoords().size());
+        pop = new Population(tsp.getCoords(), 30);
 
-        ArrayList<Double> jumpResultAll = new ArrayList<Double>();
-        ArrayList<Double> jumpResultMin = new ArrayList<Double>();
-        Double jumpMin = 0.0;
+        for(int i=0;i<pop.getParents().size();i++){
+            System.out.println(i+": "+ pop.getParents().get(i).getScore());
+        }
 
-        ArrayList<Double> exchangeResultAll = new ArrayList<Double>();
-        ArrayList<Double> exchangeResultMin = new ArrayList<Double>();
-        Double exchangeMin = 0.0;
+        FitnessProportionate fitPropObj=new FitnessProportionate();
+        Population mating = fitPropObj.select(tsp,pop,10);
 
-        ArrayList<Double> twoOptResultAll = new ArrayList<Double>();
-        ArrayList<Double> twoOptResultMin = new ArrayList<Double>();
-        Double twoOptMin = 0.0;
+        InsertMutation ins=new InsertMutation();
+        SwapMutation swap = new SwapMutation();
+        InvertMutation invert = new InvertMutation();
 
-        int numTests = 30;
+        int times=0;
+        while(times<100){
 
-        JumpOperator jumpSearch = new JumpOperator();
-        jumpMin = runTests(jumpSearch, jumpResultAll, jumpResultMin,
-            jumpMin, numTests, true);
+            for(int i=0;i<mating.getParents().size();i++){
+                //pop.addToParents(ins.mutate(mating.getParents().get(i)));
+                pop.addToParents(swap.mutate(mating.getParents().get(i)));
+                //pop.addToParents(invert.mutate(mating.getParents().get(i)));
+            }
+            pop=fitPropObj.select(tsp,pop,30);
+            times++;
+        }
 
-        ExchangeOperator exchangeSearch = new ExchangeOperator();
-        exchangeMin = runTests(exchangeSearch, exchangeResultAll, exchangeResultMin,
-            exchangeMin, numTests, true);
 
-        TwoOptOperator twoOpt = new TwoOptOperator();
-        twoOptMin = runTests(twoOpt, twoOptResultAll, twoOptResultMin,
-            twoOptMin, numTests, true);
+        // ArrayList<Double> jumpResultAll = new ArrayList<Double>();
+        // ArrayList<Double> jumpResultMin = new ArrayList<Double>();
+        // Double jumpMin = 0.0;
 
-        System.out.println("Mean fitness before selection: " + getPopulationScore(pop));
-        Population testPop = pop;
+        // ArrayList<Double> exchangeResultAll = new ArrayList<Double>();
+        // ArrayList<Double> exchangeResultMin = new ArrayList<Double>();
+        // Double exchangeMin = 0.0;
 
-        FitnessProportionate fitProp = new FitnessProportionate();
-        testPop = fitProp.select(tsp, pop, 10);
-        System.out.println("Mean fitness after fitness selection: " + getPopulationScore(testPop));
+        // ArrayList<Double> twoOptResultAll = new ArrayList<Double>();
+        // ArrayList<Double> twoOptResultMin = new ArrayList<Double>();
+        // Double twoOptMin = 0.0;
 
-        TournamentSelection tournament = new TournamentSelection();
-        testPop = tournament.select(tsp, pop, 10);
-        System.out.println("Mean fitness after tournament selection: " + getPopulationScore(testPop));
+        // int numTests = 30;
 
-        ElitismSelection elitism = new ElitismSelection();
-        testPop = elitism.select(tsp, pop, 10);
-        System.out.println("Mean fitness after elitism selection: " + getPopulationScore(testPop));
+        // JumpOperator jumpSearch = new JumpOperator();
+        // jumpMin = runTests(jumpSearch, jumpResultAll, jumpResultMin,
+        //     jumpMin, numTests, true);
+
+        // ExchangeOperator exchangeSearch = new ExchangeOperator();
+        // exchangeMin = runTests(exchangeSearch, exchangeResultAll, exchangeResultMin,
+        //     exchangeMin, numTests, true);
+
+        // TwoOptOperator twoOpt = new TwoOptOperator();
+        // twoOptMin = runTests(twoOpt, twoOptResultAll, twoOptResultMin,
+        //     twoOptMin, numTests, true);
+
+        // System.out.println("Mean fitness before selection: " + getPopulationScore(pop));
+        // Population testPop = pop;
+
+        // FitnessProportionate fitProp = new FitnessProportionate();
+        // testPop = fitProp.select(tsp, pop, 10);
+        // System.out.println("Mean fitness after fitness selection: " + getPopulationScore(testPop));
+
+        // TournamentSelection tournament = new TournamentSelection();
+        // testPop = tournament.select(tsp, pop, 10);
+        // System.out.println("Mean fitness after tournament selection: " + getPopulationScore(testPop));
+
+        // ElitismSelection elitism = new ElitismSelection();
+        // testPop = elitism.select(tsp, pop, 10);
+        // System.out.println("Mean fitness after elitism selection: " + getPopulationScore(testPop));
 
         return;
     }

@@ -51,4 +51,16 @@ public class Population
         parents = new ArrayList<Solution>(input);
     }
 
+    //Find best score
+    public Double getBestScore(){
+        Double best = parents.get(0).getScore();
+        for(int i=0;i<parents.size();i++)
+        {
+            if(parents.get(i).getScore()<best){
+                best=parents.get(i).getScore();
+            }
+        }
+        return best;
+    }
+
 }

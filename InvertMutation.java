@@ -25,39 +25,41 @@ public class InvertMutation implements IMutation
 		// If start and end generate to have no intermediate
 		// cities, return without doing anything. 
 		// This avoids an infinite loop. 
-		if (start + 1 == end)
+		if (start + 1 == end||start==end)
 		{
+			swap(start,end);
 			return mutated;
 		}
 		
 		// Perform the mutation. 
 		while(true)
 		{
-			start = start + 1;
-			end = end - 1;
-
 			// If swap would do nothing, we are done
 			// so break. 
 			// This is escape condition for case
 			// where start - end is an odd number,
 			// and hence the number in the middle is
 			// not changed. 
+
 			if (start == end)
 			{
 				break;
 			}
-			
-			mutated.swap(start, end);
-			
 			// If start and end are next to each other,
 			// we are done so break.
 			// This is the escape condition for the case
 			// when start - end is an even number, and hence
 			// the swapping stops when start and end are adjacent.  
+		
 			if (start + 1 == end)
 			{
 				break;
 			}
+			
+			mutated.swap(start, end);
+
+			start = start + 1;
+			end = end - 1;
 		}
 		
 		return mutated;
