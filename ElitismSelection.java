@@ -2,15 +2,12 @@ import java.util.ArrayList;
 
 public class ElitismSelection implements ISelection
 {
-    Population populationObject;
-
     // Keeps the solutions with highest fitness scores
     // numElites variable is number of elites present in a population
     public Population select(TSP_Problem tsp, Population solutions, int numElites)
     {
-        populationObject = new Population(tsp.getCoords(), tsp.getCoords().size());
         // Initialise population array
-        ArrayList<Solution> population = populationObject.getParents();
+        ArrayList<Solution> population = solutions.getParents();
         ArrayList<Solution> elites = new ArrayList<Solution> ();
 
         // Find elites and seperate from population
@@ -29,8 +26,8 @@ public class ElitismSelection implements ISelection
             elites.add(population.get(indexBest));
             population.remove(indexBest);
         }
-        populationObject.replaceParents(elites);
+        solutions.replaceParents(elites);
 
-        return populationObject;
+        return solutions;
     }
 }

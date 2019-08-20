@@ -3,16 +3,13 @@ import java.util.Random;
 
 public class TournamentSelection implements ISelection
 {
-    Population populationObject;
-
     // Keeps solutions with higher fitness scores if selected in tournaments
     // Tournaments variable is equal to number of solutions returned
     public Population select(TSP_Problem tsp, Population solutions, int tournaments)
     {
-        populationObject = new Population(tsp.getCoords(), tsp.getCoords().size());
         int n = 3; // Number of individuals in tournament
         // Initialise population array
-        ArrayList<Solution> population = populationObject.getParents();
+        ArrayList<Solution> population = solutions.getParents();
         ArrayList<Solution> survivors = new ArrayList<Solution> ();
         
         for (int j = 0; j < tournaments; j++)
@@ -40,7 +37,7 @@ public class TournamentSelection implements ISelection
             // Add individual to survivors
             survivors.add(competitors.get(indexBest));
         }
-        populationObject.replaceParents(survivors);
-        return populationObject;
+        solutions.replaceParents(survivors);
+        return solutions;
     }
 }

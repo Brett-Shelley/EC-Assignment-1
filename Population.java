@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -15,9 +16,10 @@ import java.util.Collections;
 
 ---------------------------------------------------------- */
 
-public class Population
+public class Population implements Serializable
 {
-    //arrayList of solutions
+    private static final long serialVersionUID = 1L;
+    // arrayList of solutions
     private ArrayList<Solution> parents;
 
     // Creates an initial population of desired size
@@ -49,6 +51,20 @@ public class Population
     public void replaceParents(ArrayList<Solution> input)
     {
         parents = new ArrayList<Solution>(input);
+    }
+
+    //Find best score
+    public Double getBestScore(){
+        System.out.println(parents.size());
+        Double best = parents.get(0).getScore();
+        for(int i = 1; i < parents.size(); i++)
+        {
+            //parents.get(i).print();
+            if (parents.get(i).getScore() < best) {
+                best = parents.get(i).getScore();
+            }
+        }
+        return best;
     }
 
 }

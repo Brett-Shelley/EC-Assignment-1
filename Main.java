@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.io.*;
 
 //Main class
 public class Main
@@ -9,7 +10,7 @@ public class Main
     public static void main(String[] args)
     {
         tsp = new TSP_Problem("./Problems/eil51.tsp");
-        pop = new Population(tsp.getCoords(), tsp.getCoords().size());
+        pop = new Population(tsp.getCoords(), 20);
 
         ArrayList<Double> jumpResultAll = new ArrayList<Double>();
         ArrayList<Double> jumpResultMin = new ArrayList<Double>();
@@ -38,19 +39,59 @@ public class Main
             twoOptMin, numTests, true);
 
         System.out.println("Mean fitness before selection: " + getPopulationScore(pop));
-        Population testPop = pop;
 
-        FitnessProportionate fitProp = new FitnessProportionate();
-        testPop = fitProp.select(tsp, pop, 10);
-        System.out.println("Mean fitness after fitness selection: " + getPopulationScore(testPop));
+        Population matingPop;
 
-        TournamentSelection tournament = new TournamentSelection();
-        testPop = tournament.select(tsp, pop, 10);
-        System.out.println("Mean fitness after tournament selection: " + getPopulationScore(testPop));
+        FitnessProportionate fit = new FitnessProportionate();
+        TournamentSelection torna = new TournamentSelection();
+        ElitismSelection elite = new ElitismSelection();
 
-        ElitismSelection elitism = new ElitismSelection();
-        testPop = elitism.select(tsp, pop, 10);
-        System.out.println("Mean fitness after elitism selection: " + getPopulationScore(testPop));
+        InsertMutation insert = new InsertMutation();
+        SwapMutation swap = new SwapMutation();
+        InvertMutation invert = new InvertMutation();
+
+        OrderCrossover order = new OrderCrossover();
+        PmxCrossover pmx = new PmxCrossover();
+        CycleCrossover cycle = new CycleCrossover();
+
+        ArrayList<Solution> crossoverResult;
+
+        for (int x = 1; x <= 20000; x++)
+        {
+            matingPop = (Population)deepCopy(pop);
+            elite.select(tsp, matingPop, 4);
+            //System.out.println("1: " + pop.getParents().size() + " : " + matingPop.getParents().size());
+            for (int i = 0; i < matingPop.getParents().size(); i++)
+            {
+                pop.addToParents(invert.mutate(matingPop.getParents().get(i)));
+                // for (int j = i+1; j < matingPop.getParents().size(); j++)
+                // {
+                //     crossoverResult = pmx.crossover(swap.mutate(matingPop.getParents().get(i)), swap.mutate(matingPop.getParents().get(j)));
+                //     pop.addToParents(crossoverResult.get(0));
+                //     pop.addToParents(crossoverResult.get(1));
+                // }
+            }
+            //System.out.println("2: " + pop.getParents().size() + " : " + matingPop.getParents().size());
+            elite.select(tsp, pop, 20);
+            //System.out.println("3: " + pop.getParents().size() + " : " + matingPop.getParents().size());
+            if (x == 2000)
+            {
+                System.out.println(x + ": " + pop.getBestScore());
+            }
+            else if (x == 5000)
+            {
+                System.out.println(x + ": " + pop.getBestScore());
+            }
+            else if (x == 10000)
+            {
+                System.out.println(x + ": " + pop.getBestScore());
+            }
+            else if (x == 20000)
+            {
+                System.out.println(x + ": " + pop.getBestScore());
+            }
+            //System.out.println(x + ": " + pop.getBestScore());
+        }
 
         return;
     }
@@ -108,5 +149,23 @@ public class Main
         }
         avgScore = avgScore / solutions.getParents().size();
         return avgScore;
+    }
+
+    /**
+    * Makes a deep copy of any Java object that is passed.
+    */
+    private static Object deepCopy(Object object) {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ObjectOutputStream outputStrm = new ObjectOutputStream(outputStream);
+            outputStrm.writeObject(object);
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+            ObjectInputStream objInputStream = new ObjectInputStream(inputStream);
+            return objInputStream.readObject();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

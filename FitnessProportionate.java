@@ -3,16 +3,12 @@ import java.util.Random;
 
 public class FitnessProportionate implements ISelection
 {
-    Population populationObject;
-    
     // Keeps the solutions with higher fitness score with a higher probability
     // numSurvivors variable is number of solutions in population
     public Population select(TSP_Problem tsp, Population solutions, int numSurvivors)
     {
-        populationObject = new Population(tsp.getCoords(), tsp.getCoords().size());
-
         // Initialise population array
-        ArrayList<Solution> population = populationObject.getParents();
+        ArrayList<Solution> population = solutions.getParents();
 
         // Find sum of fitness
         double sum = 0;
@@ -22,20 +18,30 @@ public class FitnessProportionate implements ISelection
         }
 
         // Select n individuals with probability assigned
-        double probability = sum;
+        double probability;
         double randomProb;
         ArrayList<Solution> survivors = new ArrayList<Solution> ();
         for (int i = 0; i < numSurvivors; i++)
         {
+            probability = sum;
             Random rand = RandomNumberGenerator.getRandom();
             randomProb = rand.nextDouble() * sum;
             for (int j = 0; j < population.size(); j++)
             {
-                if (probability < randomProb)
+                if (probability <= randomProb)
                 {
-                    survivors.add(population.get(j));
-                    population.remove(j);
-                    break;
+                    if (j == 0)
+                    {
+                        survivors.add(population.get(j));
+                        population.remove(j);
+                        break;
+                    }
+                    else
+                    {
+                        survivors.add(population.get(j - 1));
+                        population.remove(j - 1);
+                        break;
+                    }
                 }
                 else
                 {
@@ -43,7 +49,7 @@ public class FitnessProportionate implements ISelection
                 }
             }
         }
-        populationObject.replaceParents(survivors);
-        return populationObject;
+        solutions.replaceParents(survivors);
+        return solutions;
     }
 }
