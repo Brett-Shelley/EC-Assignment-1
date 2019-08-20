@@ -37,7 +37,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
     }
 
     //Add a new edge to a given city
-    private void addTableEntry(HashMap<Integer,Integer> map, int index, int key){
+    private void addTableEntry(HashMap<Integer,Integer> map, int key){
         int count = map.containsKey(key) ? map.get(key) : 0;
         map.put(key, count + 1);  //If wasn't present, this is set to 1, else its incremented
 
@@ -144,22 +144,39 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             //Find the indexes of this element for both parents
                 //Use parent 1 as source
             parent1_index = i;
+
+            //Add the neighbours from parent1
+            addTableEntry(temp, shift(parent1_index, size, false));
+            addTableEntry(temp, shift(parent1_index, size, true));
+
             for(int j = 0; j < size; j++){
                 if(parentOne.get(parent1_index) == parentTwo.get(j)){
                     parent2_index = j;
+                    //Convert parent2_index to the parent1 list
+                        //get solution N from parentTwo and find the same solution from parentOne and get the index
+                    int left = shift(parent2_index, size, false);
+                    int right = shift(parent2_index, size, true);
+                    for(int k = 0; k < size; k++){
+                        //Add the neighbours from parent2
+                        if(parentTwo.get(left) == parentOne.get(k) || parentTwo.get(right) == parentOne.get(k)){
+                            addTableEntry(temp, k);
+                        }
+                    }
                     break;
                 }
             }
 
-            //Add the 4 neighbours (If we get a repeated number, that means both parents share a neighbour)
-            addTableEntry(temp, i, shift(parent1_index, size, false));
-            addTableEntry(temp, i, shift(parent1_index, size, true));
-            addTableEntry(temp, i, shift(parent2_index, size, false));
-            addTableEntry(temp, i, shift(parent2_index, size, true));
-
             table.add(temp);
             remainingCities.add(i);
+
+            System.out.println("Parent indexes: " + parent1_index + ", " + parent2_index);
         }
+
+        System.out.println("\nContent of table");
+        for(int i = 0; i < size; i++){
+            System.out.println(i + ": " + table.get(i).keySet());
+        }
+        System.out.println("");
 
         Random rand;
         int city_id;    //This is the "city_id" th element in the parentOne list
@@ -189,23 +206,17 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
                     city_id = remainingCities.get(rand.nextInt(remainingCities.size()));
                 }
                 else if(edges.size() == 1){ //One option so we choose it
-                    if(i == size - 1){
-                        System.out.println("LAST ELE");
-                    }
                     System.out.println("Only 1 edge available");
                     city_id = edges.get(0);
                 }
                 else{
-                    System.out.println("A: " + edges.size());
                     edges = commonEdges(table, edges);  //Getting a list of those with the most common edges
-                    System.out.println("B: " + edges.size());
                     if(edges.size() == 1){
                         System.out.println("found most common edges");
                         city_id = edges.get(0);
                     }
                     else{
                         edges = shortestLists(table, edges);
-                        System.out.println("C: " + edges.size());
                         if(edges.size() == 1){
                             System.out.println("found Shortest list");
                             city_id = edges.get(0);
@@ -213,13 +224,12 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
                         else{   //Still no clear winner
                             System.out.println("no clear winner");
                             rand = RandomNumberGenerator.getRandom();
-                            System.out.println("Edges size: " + edges.size());
-                            System.out.println("Edges: " + edges);
                             city_id = edges.get(rand.nextInt(edges.size()));
                         }
                     }
                 }
             }
+            System.out.println("City chosen was: " + city_id);
 
             //Get the edges for the city we just chose
             previousCityPaths = table.get(city_id);
