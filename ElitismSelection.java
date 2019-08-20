@@ -2,46 +2,35 @@ import java.util.ArrayList;
 
 public class ElitismSelection implements ISelection
 {
-    TSP_Problem tsp;
+    Population populationObject;
 
-    public ArrayList<ArrayList<Integer>> select(ArrayList<ArrayList<Integer>> solutions)
+    // Keeps the solutions with highest fitness scores
+    // numElites variable is number of elites present in a population
+    public Population select(TSP_Problem tsp, Population solutions, int numElites)
     {
-        
-        ArrayList<ArrayList<Integer>> population = solutions;
-        ArrayList<ArrayList<Integer>> elites = new ArrayList<ArrayList<Integer>>();
-        int numElites = 3; // The number of elites present in a population
-
-        // Get all fitness scores
-        ArrayList<Double> fitness = new ArrayList<Double>(population.size());
-        for (int i = 0; i < population.size(); i++)
-        {
-            fitness.add(tsp.getTotalDistance(population.get(i)));
-        }
+        populationObject = new Population(tsp.getCoords(), tsp.getCoords().size());
+        // Initialise population array
+        ArrayList<Solution> population = populationObject.getParents();
+        ArrayList<Solution> elites = new ArrayList<Solution> ();
 
         // Find elites and seperate from population
         for (int i = 0; i < numElites; i++)
         {
-            double best = fitness.get(0);
+            double best = population.get(0).getScore();
             int indexBest = 0;
             for (int j = 1; j < population.size(); j++) {
-                if (best > fitness.get(j)) 
+                if (best > population.get(j).getScore()) 
                 {
-                    best = fitness.get(j);
+                    best = population.get(j).getScore();
                     indexBest = i;
                 }
             }
             // Add elites to seperate list
             elites.add(population.get(indexBest));
             population.remove(indexBest);
-            fitness.remove(indexBest);
         }
+        populationObject.replaceParents(elites);
 
-        // Elites now seperated, what selection method to use?
-        
-
-        // Add elites to the rest of population
-        population.addAll(elites);
-
-        return population;
+        return populationObject;
     }
 }

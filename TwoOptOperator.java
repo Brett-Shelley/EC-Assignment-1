@@ -4,10 +4,10 @@ import java.util.Collections;
 // Class which implements the TwoOptOperator. 
 public class TwoOptOperator implements ILocalSearchOperator
 {
-	// Implements the TwoOptOperator. 
-	public ArrayList<Integer> mutate(ArrayList<Integer> permutation, int first, int second)
-	{
-		ArrayList<Integer> twoOpt = new ArrayList<Integer>();
+    // Implements the TwoOptOperator. 
+    public ArrayList<Integer> mutate(ArrayList<Integer> permutation, int first, int second)
+    {
+        ArrayList<Integer> twoOpt = new ArrayList<Integer>();
         for (int i = 0; i < first; i++)
         {
             twoOpt.add(permutation.get(i));
@@ -21,10 +21,10 @@ public class TwoOptOperator implements ILocalSearchOperator
             twoOpt.add(permutation.get(k));
         }
         return twoOpt;
-	}
-	
-	public String name()
-	{
-		return "Two opt";
-	}
+    }
+    
+    public String name()
+    {
+        return "Two opt";
+    }
 }
