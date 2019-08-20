@@ -18,7 +18,7 @@ public class TournamentSelection implements ISelection
         for (int j = 0; j < tournaments; j++)
         {
             // Select n individuals randomly from solutions pool
-            Random rand = new Random();
+            Random rand = RandomNumberGenerator.getRandom();
             ArrayList<Solution> competitors = new ArrayList<Solution>();
             for (int i = 0; i < n; i++)
             {
@@ -44,4 +44,3 @@ public class TournamentSelection implements ISelection
         return populationObject;
     }
 }
-

@@ -26,6 +26,32 @@ public class Solution
         score = getTotalDistance();
     }
     
+    public int size()
+    {
+    	return permutation.size();
+    }
+    
+    public Coords get(int i)
+    {
+    	if (i >= permutation.size())
+    	{
+    		i = permutation.size();
+    	}
+    	if (i < 0)
+    	{
+    		i = 0;
+    	}
+    	
+    	return permutation.get(i);
+    }
+    
+    // Returns the index of point, or -1 if it is not
+    // in the sequence. 
+    public int index_of(Coords point)
+    {
+    	return permutation.indexOf(point);
+    }
+    
     //get the score
     public double getScore()
     {
@@ -55,7 +81,16 @@ public class Solution
         score = getTotalDistance();
     }
 
-
+	// Prints a line container each of the coordinates, followed by the trip length. 
+	public void print()
+	{
+		for (Coords point : permutation)
+		{
+			System.out.print("(" + point.getX() + ", " + point.getY() + ") -> "); 
+		}
+		System.out.print("Total: " + score + "\n");
+		System.out.println("-------------------------------------");
+	}
 
     // Helper function to getTotalDistance, calculates distance between two points
     private double getDistance(int i, int j)

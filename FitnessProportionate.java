@@ -27,7 +27,7 @@ public class FitnessProportionate implements ISelection
         ArrayList<Solution> survivors = new ArrayList<Solution> ();
         for (int i = 0; i < numSurvivors; i++)
         {
-            Random rand = new Random();
+            Random rand = RandomNumberGenerator.getRandom();
             randomProb = rand.nextDouble() * sum;
             for (int j = 0; j < population.size(); j++)
             {
