@@ -35,40 +35,6 @@ public class Main
         twoOptMin = runTests(twoOpt, twoOptResultAll, twoOptResultMin,
             twoOptMin, numTests, true);
 
-
-                // This below change should NEVER be pushed to master - if you see this in a pull request
-                // give a negative review stating this should be removed.
-                    //But its here for easier testing for now
-                TSP_Problem tsp2 = new TSP_Problem("./Problems/dav10.tsp");
-
-                ArrayList<Coords> list = tsp2.getCoords();
-
-                Population pop = new Population(list, 2);   //Causes a null pointer error
-
-                //Getting the two parent solutions out
-                Solution solOne = pop.getParents().get(0);
-                Solution soltwo = pop.getParents().get(1);
-
-                //Create an array for the children solutions
-                ArrayList<Solution> children = new ArrayList<Solution>();
-
-                //Using them for EdgeRecombinationCrossover
-                EdgeRecombinationCrossover cross = new EdgeRecombinationCrossover();
-                children = cross.crossover(solOne, soltwo);
-
-                System.out.println("Execution complete");
-
-                System.out.println("\nParent 1");
-                solOne.print();
-                System.out.println("\nParent 2");
-                soltwo.print();
-                // We only have 2 children because we had 2 parents
-                System.out.println("\nChild 1");
-                children.get(0).print();
-                System.out.println("\nChild 2");
-                children.get(1).print();
-
-
         return;
     }
 

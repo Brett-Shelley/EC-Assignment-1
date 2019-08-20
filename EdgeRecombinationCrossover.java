@@ -92,17 +92,13 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
     }
 
     //The pool should be the list of edges we can choose from and we return the sublist which has the most common edges
-        //Eg. pool = [2, 3, 7]
-        //table.get(2) = [9 1]
-        //table.get(3) = [1 2 1]    //1 is a common edge
-        //table.get(7) = [1 5 3 5]  //5 is a common edge
-        //subPool = [3 7]
-    //Do note if a city has 2 common edges (eg. table.get(n) = [1 5 5 1]) then that city is given higher priority over
-        //single common edge cities
+        //Eg. pool = [2, 3+, 7]
+        //subPool = [3]
+
+        //Eg. pool = [2+, 3+]
+        //subPool = [2, 3]
     private ArrayList<Integer> commonEdges(ArrayList<HashMap<Integer,Integer>> table, ArrayList<Integer> pool, int city_id){
         ArrayList<Integer> subPool = new ArrayList<Integer>();
-        System.out.println("commonEdges: " + " Pool size: " + pool.size() + ", The pool: " + pool + " The city_id :" + city_id);
-        System.out.println(table.get(city_id));
 
         //Find the higest amount of common edges in the pool using the table hashmaps
             //Realistically, this should only be at most 2
@@ -113,21 +109,16 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             }
         }
 
-        System.out.println("Most common edges are: " + most_common_edges);
-
         for(int i = 0; i < pool.size(); i++){
             if(table.get(city_id).get(pool.get(i)) == most_common_edges){
                 subPool.add(pool.get(i));
             }
         }
 
-        System.out.println("Sublist: " + subPool);
-
         //If all options have no edges left, return the original list
         if(subPool.size() <= 0){
             return pool;
         }
-
 
         return subPool;
     }
@@ -171,22 +162,13 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
 
             table.add(temp);
             remainingCities.add(i);
-
-            System.out.println("Parent indexes: " + parent1_index + ", " + parent2_index);
         }
-
-        System.out.println("\nContent of table");
-        for(int i = 0; i < size; i++){
-            System.out.println(i + ": " + table.get(i).keySet());
-        }
-        System.out.println("");
 
         Random rand;
         int city_id = 0;    //This is the "city_id" th element in the parentOne list
                             //This is initialised so the compiler doesn't complain
         HashMap<Integer, Integer> previousCityPaths = null;
         for(int i = 0; i < size; i++){
-            System.out.println("i: " + i);
             //Select a city to chose
 
             //Priority list
@@ -197,7 +179,6 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             if(i == 0){    //For first element
                 rand = RandomNumberGenerator.getRandom();
                 city_id = remainingCities.get(rand.nextInt(remainingCities.size()));    //Choose a random city we haven't chosen yet
-                System.out.println("Initial or last city is: " + city_id); //Note this is zero indexed
             }
             else{   //Note, the first time we come in here, we have 1 less than the initial number of cities to choose from
                     //So for 51 cities, we will always start this block with 50 cities to choose from
@@ -205,35 +186,29 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
                 ArrayList<Integer> edges = getCityEdges(previousCityPaths);
 
                 if(edges.size() <= 0){  //No edges left
-                    System.out.println("No edges left, choosing random from remaining elements");
                     rand = RandomNumberGenerator.getRandom();
                     city_id = remainingCities.get(rand.nextInt(remainingCities.size()));
                 }
                 else if(edges.size() == 1){ //One option so we choose it
-                    System.out.println("Only 1 edge available");
                     city_id = edges.get(0);
                 }
                 else{
                     edges = commonEdges(table, edges, city_id);  //Getting a list of those with the most common edges
                     if(edges.size() == 1){
-                        System.out.println("found most common edges");
                         city_id = edges.get(0);
                     }
                     else{
                         edges = shortestLists(table, edges);
                         if(edges.size() == 1){
-                            System.out.println("found Shortest list");
                             city_id = edges.get(0);
                         }
                         else{   //Still no clear winner
-                            System.out.println("no clear winner");
                             rand = RandomNumberGenerator.getRandom();
                             city_id = edges.get(rand.nextInt(edges.size()));
                         }
                     }
                 }
             }
-            System.out.println("City chosen was: " + city_id);
 
             //Get the edges for the city we just chose
             previousCityPaths = table.get(city_id);
@@ -243,11 +218,8 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
 
         }
 
-        System.out.println("\n------------------------\n");
-
         Solution result = new Solution(child);
         
         return result;
-
     }
 }
