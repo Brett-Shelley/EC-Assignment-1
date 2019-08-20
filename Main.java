@@ -39,9 +39,9 @@ public class Main
                 // This below change should NEVER be pushed to master - if you see this in a pull request
                 // give a negative review stating this should be removed.
                     //But its here for easier testing for now
-                TSP_Problem tsp = new TSP_Problem("./Problems/dav10.tsp");
+                TSP_Problem tsp2 = new TSP_Problem("./Problems/dav10.tsp");
 
-                ArrayList<Coords> list = tsp.getCoords();
+                ArrayList<Coords> list = tsp2.getCoords();
 
                 Population pop = new Population(list, 2);   //Causes a null pointer error
 

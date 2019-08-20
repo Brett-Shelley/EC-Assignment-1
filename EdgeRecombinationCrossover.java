@@ -79,6 +79,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             }
         }
 
+        //This should never trigger, but just incase its here
         if(subPool.size() <= 0){
             return pool;
         }
@@ -109,6 +110,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             }
         }
 
+        //If all options have no edges left, return the original list
         if(subPool.size() <= 0){
             return pool;
         }
@@ -149,18 +151,10 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             originalCities.add(i);
         }
 
-        //THIS COMMENT IS OLD
-        //NOTE THE "city_id" ARRAY KEEPS TRACK OF THE ORIGINAL ORDER
-            //"city" refers to the index of remaining cities available
-            //So if we have {2, 4 and 8} city can range between 0 and 2
-
-            //If i == 0 we choose a random city from the whole lot
-
         ArrayList<Integer> remainingCities = new ArrayList<Integer>(originalCities);
         Random rand;
         int city_id;   //The city we will add and choose to delete
                     //Need a seperate var to keep track of the original values
-        // int remaining_cities = size;
         HashMap<Integer, Integer> previousCityPaths = null;
         for(int i = 0; i < size; i++){
             System.out.println("i: " + i);
@@ -173,9 +167,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
                 // Failsafe (Final element, no clear leader, etc)
             if(i == 0 || i == size - 1){    //For first and last element
                 rand = RandomNumberGenerator.getRandom();
-                // city_id = rand.nextInt(remainingCities.size());
-                // city_id = rand.nextInt(remaining_cities);
-                city_id = remainingCities.get(rand.nextInt(remainingCities.size()));
+                city_id = remainingCities.get(rand.nextInt(remainingCities.size()));    //Choose a random city we haven't chosen yet
                 System.out.println("Initial or last city is: " + city_id); //Note this is zero indexed
             }
             else{   //Note, the first time we come in here, we have 1 less than the initial number of cities to choose from
@@ -188,14 +180,11 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
                 //If the list is still not one, choose randomly from the list (The list shouldn't be able to be zero here)
 
                 ArrayList<Integer> edges = getCityEdges(previousCityPaths);
-                // System.out.println(edges);
-                // return null;
 
                 if(edges.size() <= 0){  //No edges left
                     System.out.println("No edges left, choosing random from remaining elements");
                     rand = RandomNumberGenerator.getRandom();
                     city_id = remainingCities.get(rand.nextInt(remainingCities.size()));
-                    // city_id = rand.nextInt(remaining_cities);
                 }
                 else if(edges.size() == 1){
                     System.out.println("Only 1 edge available");
@@ -231,12 +220,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             previousCityPaths = table.get(city_id);
             child.add(parentOne.get(city_id));
             removeCityFromTableEdges(table, city_id);
-            // if(i != size - 1){
-                remainingCities.remove(remainingCities.indexOf(city_id));   //Since this is always from 0 to n-1 this should work fine
-            // }
-            // else{
-                // remainingCities.remove(0);
-            // }
+            remainingCities.remove(remainingCities.indexOf(city_id));   //Since this is always from 0 to n-1 this should work fine
 
         }
 
