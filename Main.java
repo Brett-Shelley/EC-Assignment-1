@@ -10,7 +10,7 @@ public class Main
     public static void main(String[] args)
     {
         tsp = new TSP_Problem("./Problems/eil51.tsp");
-        pop = new Population(tsp.getCoords(), 20);
+        pop = new Population(tsp.getCoords(), 200);
 
         ArrayList<Double> jumpResultAll = new ArrayList<Double>();
         ArrayList<Double> jumpResultMin = new ArrayList<Double>();
@@ -53,26 +53,27 @@ public class Main
         OrderCrossover order = new OrderCrossover();
         PmxCrossover pmx = new PmxCrossover();
         CycleCrossover cycle = new CycleCrossover();
+        EdgeRecombinationCrossover edge = new EdgeRecombinationCrossover();
 
         ArrayList<Solution> crossoverResult;
 
         for (int x = 1; x <= 20000; x++)
         {
             matingPop = (Population)deepCopy(pop);
-            elite.select(tsp, matingPop, 4);
+            torna.select(tsp, matingPop, 50);
             //System.out.println("1: " + pop.getParents().size() + " : " + matingPop.getParents().size());
             for (int i = 0; i < matingPop.getParents().size(); i++)
             {
                 pop.addToParents(invert.mutate(matingPop.getParents().get(i)));
-                // for (int j = i+1; j < matingPop.getParents().size(); j++)
-                // {
-                //     crossoverResult = pmx.crossover(swap.mutate(matingPop.getParents().get(i)), swap.mutate(matingPop.getParents().get(j)));
-                //     pop.addToParents(crossoverResult.get(0));
-                //     pop.addToParents(crossoverResult.get(1));
-                // }
+                for (int j = i+1; j < matingPop.getParents().size(); j++)
+                {
+                    crossoverResult = edge.crossover(swap.mutate(matingPop.getParents().get(i)), swap.mutate(matingPop.getParents().get(j)));
+                    pop.addToParents(crossoverResult.get(0));
+                    pop.addToParents(crossoverResult.get(1));
+                }
             }
             //System.out.println("2: " + pop.getParents().size() + " : " + matingPop.getParents().size());
-            elite.select(tsp, pop, 20);
+            torna.select(tsp, pop, 200);
             //System.out.println("3: " + pop.getParents().size() + " : " + matingPop.getParents().size());
             if (x == 2000)
             {
@@ -90,7 +91,7 @@ public class Main
             {
                 System.out.println(x + ": " + pop.getBestScore());
             }
-            //System.out.println(x + ": " + pop.getBestScore());
+            System.out.println(x + ": " + pop.getBestScore());
         }
 
         return;

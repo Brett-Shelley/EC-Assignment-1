@@ -122,6 +122,7 @@ public class Solution implements Serializable
         {
             score += getDistance(i, i + 1);
         }
+        score += getDistance(length, 0);
 
         return score;
     }

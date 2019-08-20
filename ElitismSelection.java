@@ -19,7 +19,7 @@ public class ElitismSelection implements ISelection
                 if (best > population.get(j).getScore()) 
                 {
                     best = population.get(j).getScore();
-                    indexBest = i;
+                    indexBest = j;
                 }
             }
             // Add elites to seperate list

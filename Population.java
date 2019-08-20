@@ -55,7 +55,7 @@ public class Population implements Serializable
 
     //Find best score
     public Double getBestScore(){
-        System.out.println(parents.size());
+        //System.out.println(parents.size());
         Double best = parents.get(0).getScore();
         for(int i = 1; i < parents.size(); i++)
         {
