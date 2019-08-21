@@ -27,7 +27,7 @@ public class Main
             }
             offspring.addAll(parents.getPopulation());
             population.replacePopulation(offspring);
-            if (x % 1 == 0)
+            if (x % 200 == 0)
             {
                 population.print();
             }
