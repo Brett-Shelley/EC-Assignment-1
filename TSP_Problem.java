@@ -80,27 +80,28 @@ public class TSP_Problem
         return points;
     }
 
-    // Gets the distance between Coords i and j.
+    // Gets the rounded euclidean distance between Coords i and j.
     public double getDistance(int i, int j)
     {
-        return Math.sqrt(Math.pow((points.get(i).getX() - points.get(j).getX()), 2) + Math.pow((points.get(i).getY() - points.get(j).getY()), 2));
+        double x_diff = points.get(i).getX() - points.get(j).getX();
+        double y_diff = points.get(i).getY() - points.get(j).getY();
+        double x_pow = Math.pow(Math.abs(x_diff), 2);
+        double y_pow = Math.pow(Math.abs(y_diff), 2);
+        double root = Math.sqrt(x_pow + y_pow);
+        return root;
     }
 
-    // Gets the total distance for a specified solution.
+    // Gets the total euclidean distance for a specified solution.
     public double getTotalDistance(ArrayList<Integer> solution)
     {
         double total = 0;
-        for (int i = 0; i < solution.size(); i++)
+
+        total += getDistance(0, solution.get(0));
+        for (int i = 0; i < solution.size() - 1; i++)
         {
-            if (i+1 == solution.size())
-            {
-                total += getDistance(solution.get(i), 0);
-            }
-            else
-            {
-                total += getDistance(solution.get(i), solution.get(i+1));
-            }
+            total += getDistance(solution.get(i), solution.get(i+1));
         }
+        total += getDistance(solution.get(solution.size() - 1), 0);
         return total;
     }
 }
