@@ -6,6 +6,7 @@ public class InverOver
 	//NOTE this is just pseudo code right now
 	public Population InverOver(Population pop, int while_cond, double prob){
 		int loop_times = 0;
+		General shifter;
 		while(looptimes < while_cond){
 			//each individual in the population
 			for(int i = 0; i < pop.size(); i++){
@@ -14,7 +15,8 @@ public class InverOver
 				while(true){
 					//Calculate the next and previous
 					//cities
-					;
+					previous_city = individual_1.get(shifter.shift(i, pop.size(), false));
+					next_city = individual_1.get(shifter.shift(i, pop.size(), true));
 
 					//Decide what to do
 					if(rand(0,1) <= prob){
@@ -40,6 +42,8 @@ public class InverOver
 					pop.get(i) = individual_1;
 				}
 			}
+			//Can't remember if we only loop "while_cond" times or if we run until we have
+				//seen the same result population "while_cond" times
 			loop_times++;
 		}
 
