@@ -10,6 +10,23 @@ public class Main
     {
         tsp = new TSP_Problem("./Problems/eil51.tsp");
         pop = new Population(tsp, tsp.getCoords().size());
+        
+        OrderCrossover order = new OrderCrossover();
+        PmxCrossover pmx = new PmxCrossover();
+        CycleCrossover cycle = new CycleCrossover();
+
+        SwapMutation swap = new SwapMutation();
+        InsertMutation insert = new InsertMutation();
+        InvertMutation invert = new InvertMutation();
+
+        // FitnessProportionate fit = new FitnessProportionate();
+        // TournamentSelection tournament = new TournamentSelection();
+        // ElitismSelection elite = new ElitismSelection();
+
+        ArrayList<Solution> result;
+        // for(int x=0;x<20000;x++){
+            
+        // }
 
         ArrayList<Double> jumpResultAll = new ArrayList<Double>();
         ArrayList<Double> jumpResultMin = new ArrayList<Double>();

@@ -23,17 +23,17 @@ public class LocalSearch
         distances.add(currentDistance);
 
         boolean optimal = false;
-        
+
         // Loop until an optimal solution is found. 
         while (!optimal)
         {
             nextDistance = currentDistance;
             
             // For each dimension
-            for (int i = 0; i < problem.getDimension(); i++)
+            for (int i = 0; i < current.size(); i++)
             {
                 // For each dimension
-                for (int j = i+1; j < problem.getDimension(); j++)
+                for (int j = i+1; j < current.size(); j++)
                 {
                     // The next permutation starts as a duplicate of the current. 
                     next = new ArrayList<Integer>(current);
