@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class CycleCrossover implements ITwoParentCrossover
 {
-    public ArrayList<Solution> crossover(Solution parentOne, Solution parentTwo)
+    public ArrayList<Individual> crossover(Individual parentOne, Individual parentTwo)
     {
         int size = parentOne.size();
         Random rand = RandomNumberGenerator.getRandom();
@@ -63,12 +63,12 @@ public class CycleCrossover implements ITwoParentCrossover
             }
         }
         
-        ArrayList<Solution> result = new ArrayList<Solution>();
-        Solution solutionOne = new Solution(childOne);
-        Solution solutionTwo = new Solution(childTwo);
+        ArrayList<Individual> result = new ArrayList<Individual>();
+        Individual IndividualOne = new Individual(childOne);
+        Individual IndividualTwo = new Individual(childTwo);
         
-        result.add(solutionOne);
-        result.add(solutionTwo);
+        result.add(IndividualOne);
+        result.add(IndividualTwo);
         
         return result; 
     }
