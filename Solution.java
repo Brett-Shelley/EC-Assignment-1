@@ -40,14 +40,14 @@ public class Solution
         }
         
         permutation = problem.initPermutation();
-        problem.getTotalDistance(permutation);
+        score = problem.getTotalDistance(permutation);
     }
     
     // Copy constructor. 
     public Solution(ArrayList<Integer> parent)
     {
-        permutation = parent;
-        problem.getTotalDistance(permutation);
+        permutation = new ArrayList<Integer>(parent);
+        score = problem.getTotalDistance(permutation);
     }
     
     public int size()
@@ -102,7 +102,7 @@ public class Solution
         Collections.swap(permutation, a, b);
 
         //recalculate score
-        problem.getTotalDistance(permutation);
+        score = problem.getTotalDistance(permutation);
     }
 
 	// Prints a line container each of the coordinates, followed by the trip length. 
@@ -110,7 +110,7 @@ public class Solution
 	{
 		for (int point : permutation)
 		{
-		    System.out.println(point + " -> ");
+		    System.out.print(point + " -> ");
 			//System.out.print("(" + point.getX() + ", " + point.getY() + ") -> "); 
 		}
 		System.out.print("Total: " + score + "\n");
