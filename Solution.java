@@ -43,6 +43,13 @@ public class Solution
         problem.getTotalDistance(permutation);
     }
     
+    // Copy constructor. 
+    public Solution(ArrayList<Integer> parent)
+    {
+        permutation = parent;
+        problem.getTotalDistance(permutation);
+    }
+    
     public int size()
     {
     	return permutation.size();
