@@ -9,7 +9,7 @@ public class TournamentSelection implements ISelection
     // Tournaments variable is equal to number of solutions returned
     public Population select(TSP_Problem tsp, Population solutions, int tournaments)
     {
-        populationObject = new Population(tsp.getCoords(), tsp.getCoords().size());
+        populationObject = new Population(tsp, tsp.getCoords().size());
         int n = 3; // Number of individuals in tournament
         // Initialise population array
         ArrayList<Solution> population = populationObject.getParents();
