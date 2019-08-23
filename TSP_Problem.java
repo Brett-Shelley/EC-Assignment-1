@@ -26,9 +26,9 @@ public class TSP_Problem
             {
                 if (!read_coords)
                 {
-                   line=line.replaceAll(":", "");
+                    line=line.replaceAll(":", "");
+                    tokens = line.split(" ", 2);
 
-                    tokens = line.split("", 2);
                     switch(tokens[0])
                     {
                         case "NAME":
@@ -56,9 +56,10 @@ public class TSP_Problem
                 else
                 {
                     tokens = line.split(" ", 3);
-                    if (tokens[0].equals("EOF")) {}
+                    if (tokens[0].equals("EOF")) {System.out.println(line);}
                     else
                     {
+                        System.out.println("Line added");
                         points.add(new Coords(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2])));
                     }
                 }
