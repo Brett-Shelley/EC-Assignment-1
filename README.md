@@ -6,6 +6,6 @@ David Harley\
 Jayden Boskell\
 Raymond Habis\
 Matthew Durflinger   a1669837  matthew.durflinger@student.adeliade.edu.au \
-Patrick Ellway\
+Patrick Ellway
 
 #--------Running Instructions--------#
