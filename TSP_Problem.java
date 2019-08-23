@@ -41,6 +41,7 @@ public class TSP_Problem
                             type = tokens[1];
                             break;
                         case "DIMENSION":
+                            tokens[1]=tokens[1].replaceAll(" ", "");
                             dimension = Integer.parseInt(tokens[1]);
                             break;
                         case "EDGE_WEIGHT_TYPE":
@@ -59,7 +60,6 @@ public class TSP_Problem
                     if (tokens[0].equals("EOF")) {System.out.println(line);}
                     else
                     {
-                        System.out.println("Line added");
                         points.add(new Coords(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2])));
                     }
                 }

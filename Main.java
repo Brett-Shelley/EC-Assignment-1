@@ -8,7 +8,7 @@ public class Main
 
     public static void main(String[] args)
     {
-        tsp = new TSP_Problem("./Problems/lin105.tsp");
+        tsp = new TSP_Problem("./Problems/eil51.tsp");
         pop = new Population(tsp, tsp.getCoords().size());
         OrderCrossover order = new OrderCrossover();
         PmxCrossover pmx = new PmxCrossover();
@@ -40,7 +40,7 @@ public class Main
         //     }
         // }
 
-        System.out.println("Test: " + tsp.getCoords().size());
+        System.out.println("Number of cities: " + tsp.getCoords().size());
         
         return;
     }
