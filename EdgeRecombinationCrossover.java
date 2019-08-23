@@ -5,11 +5,11 @@ import java.util.Random;
 
 public class EdgeRecombinationCrossover implements ITwoParentCrossover
 {
-    public ArrayList<Solution> crossover(Solution parentOne, Solution parentTwo)
+    public ArrayList<Individual> crossover(Individual parentOne, Individual parentTwo)
     {
         int length = parentOne.size();
         
-        ArrayList<Solution> children = new ArrayList<Solution>();
+        ArrayList<Individual> children = new ArrayList<Individual>();
         children.add(crossoverHelper(parentOne, parentTwo));
         children.add(crossoverHelper(parentTwo, parentOne));
 
@@ -123,7 +123,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
         return subPool;
     }
 
-    private Solution crossoverHelper(Solution parentOne, Solution parentTwo){
+    private Individual crossoverHelper(Individual parentOne, Individual parentTwo){
         ArrayList<Integer> child = new ArrayList<Integer>();
         int size = parentOne.size();
         int parent1_index;
@@ -147,7 +147,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
                 if(parentOne.get(parent1_index) == parentTwo.get(j)){
                     parent2_index = j;
                     //Convert parent2_index to the parent1 list
-                        //get solution N from parentTwo and find the same solution from parentOne and get the index
+                        //get Individual N from parentTwo and find the same Individual from parentOne and get the index
                     int left = shift(parent2_index, size, false);
                     int right = shift(parent2_index, size, true);
                     for(int k = 0; k < size; k++){
@@ -218,7 +218,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
 
         }
 
-        Solution result = new Solution(child);
+        Individual result = new Individual(child);
         
         return result;
     }

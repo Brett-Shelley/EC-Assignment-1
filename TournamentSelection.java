@@ -5,21 +5,21 @@ public class TournamentSelection implements ISelection
 {
     Population populationObject;
 
-    // Keeps solutions with higher fitness scores if selected in tournaments
-    // Tournaments variable is equal to number of solutions returned
-    public Population select(TSP_Problem tsp, Population solutions, int tournaments)
+    // Keeps Individuals with higher fitness scores if selected in tournaments
+    // Tournaments variable is equal to number of Individuals returned
+    public Population select(TSP_Problem tsp, Population Individuals, int tournaments)
     {
         populationObject = new Population(tsp, tsp.getCoords().size());
         int n = 3; // Number of individuals in tournament
         // Initialise population array
-        ArrayList<Solution> population = populationObject.getParents();
-        ArrayList<Solution> survivors = new ArrayList<Solution> ();
+        ArrayList<Individual> population = populationObject.getParents();
+        ArrayList<Individual> survivors = new ArrayList<Individual> ();
         
         for (int j = 0; j < tournaments; j++)
         {
-            // Select n individuals randomly from solutions pool
+            // Select n individuals randomly from Individuals pool
             Random rand = RandomNumberGenerator.getRandom();
-            ArrayList<Solution> competitors = new ArrayList<Solution>();
+            ArrayList<Individual> competitors = new ArrayList<Individual>();
             for (int i = 0; i < n; i++)
             {
                 int randomProb = rand.nextInt(population.size());

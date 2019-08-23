@@ -78,7 +78,7 @@ public class Main
         if(printOutput){
             System.out.println("Minimum for " + name + ": " + min);
             System.out.println("Mean of all minimums for " + name + ": "  + getMean(resultMin));
-            System.out.println("Mean of all solutions for " + name + ": "  + getMean(resultAll));
+            System.out.println("Mean of all Individuals for " + name + ": "  + getMean(resultAll));
             System.out.println();
         }
 
@@ -98,15 +98,15 @@ public class Main
         return mean;
     }
 
-    public static Double getPopulationScore(Population solutions)
+    public static Double getPopulationScore(Population Individuals)
     {
         Double avgScore = 0.0;
-        ArrayList<Solution> popScores = solutions.getParents();
-        for (int i = 0; i < solutions.getParents().size(); i++)
+        ArrayList<Individual> popScores = Individuals.getParents();
+        for (int i = 0; i < Individuals.getParents().size(); i++)
         {
             avgScore += popScores.get(i).getScore();
         }
-        avgScore = avgScore / solutions.getParents().size();
+        avgScore = avgScore / Individuals.getParents().size();
         return avgScore;
     }
 }

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class OrderCrossover implements ITwoParentCrossover
 {
-    public ArrayList<Solution> crossover(Solution firstParent, Solution secondParent)
+    public ArrayList<Individual> crossover(Individual firstParent, Individual secondParent)
     {    
         int length = firstParent.size();
         Random rand = RandomNumberGenerator.getRandom();
@@ -13,7 +13,7 @@ public class OrderCrossover implements ITwoParentCrossover
         int temp;
         int current;
         
-        ArrayList<Solution> children = new ArrayList<Solution>();
+        ArrayList<Individual> children = new ArrayList<Individual>();
         // If start is before end, swap start and end. 
         if (start > end)
         {
@@ -29,7 +29,7 @@ public class OrderCrossover implements ITwoParentCrossover
          
     }
     
-    private Solution crossoverhelper(Solution firstParent, Solution secondParent, int start, int end)
+    private Individual crossoverhelper(Individual firstParent, Individual secondParent, int start, int end)
     {
         ArrayList<Integer> child = new ArrayList<Integer>();
         HashSet<Integer> points_in_child = new HashSet<Integer>();
@@ -75,7 +75,7 @@ public class OrderCrossover implements ITwoParentCrossover
             child_size += 1;
         }
         
-        Solution result = new Solution(child);
+        Individual result = new Individual(child);
         
         return result;
     } 
