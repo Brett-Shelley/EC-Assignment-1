@@ -28,12 +28,13 @@ public class LocalSearch
         while (!optimal)
         {
             nextDistance = currentDistance;
+            int bounds = current.size();
             
             // For each dimension
-            for (int i = 0; i < problem.getDimension(); i++)
+            for (int i = 0; i < bounds; i++)
             {
                 // For each dimension
-                for (int j = i+1; j < problem.getDimension(); j++)
+                for (int j = i+1; j < bounds; j++)
                 {
                     // The next permutation starts as a duplicate of the current. 
                     next = new ArrayList<Integer>(current);
