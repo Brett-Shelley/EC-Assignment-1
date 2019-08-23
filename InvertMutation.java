@@ -24,15 +24,25 @@ public class InvertMutation implements IMutation
 		
 		// If start and end generate to have no intermediate
 		// cities, return without doing anything. 
-		// This avoids an infinite loop. 
+		// This avoids an infinite loop.
+		if (start == end)
+		{
+		    return mutated;
+		} 
+		
+		// If start and end generate to be adjacent, only two
+		// nodes to swap.
 		if (start + 1 == end)
 		{
+		    mutated.swap(start, end);
 			return mutated;
 		}
 		
 		// Perform the mutation. 
 		while(true)
 		{
+		    mutated.swap(start, end);
+		    
 			start = start + 1;
 			end = end - 1;
 
@@ -47,8 +57,6 @@ public class InvertMutation implements IMutation
 				break;
 			}
 			
-			mutated.swap(start, end);
-			
 			// If start and end are next to each other,
 			// we are done so break.
 			// This is the escape condition for the case
@@ -56,6 +64,7 @@ public class InvertMutation implements IMutation
 			// the swapping stops when start and end are adjacent.  
 			if (start + 1 == end)
 			{
+			    mutated.swap(start, end);
 				break;
 			}
 		}
