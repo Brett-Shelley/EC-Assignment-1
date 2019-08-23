@@ -2,36 +2,36 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-/*--------------Solution Interface-------------------
+/*--------------Individual Interface-------------------
 0. Use set_problem to set which TSP problem you are solving. 
 
-1.  creation of a solution requires an array list of ints representing cities.
+1.  creation of a Individual requires an array list of ints representing cities.
 
-2. getScore() returns a double reperesenting the solutions fitness level
+2. getScore() returns a double reperesenting the Individuals fitness level
 
-3. getPermutation() returns an ArrayList<int>. This is the individual solution path.
+3. getPermutation() returns an ArrayList<int>. This is the individual Individual path.
 
-4. swap(int a, int b) swaps the two points in the permutation/solution path. 
+4. swap(int a, int b) swaps the two points in the permutation/Individual path. 
 
 ----------------------------------------------------*/
 
-public class Solution
+public class Individual
 {
     private static TSP_Problem problem;
     private double score;
     private ArrayList<Integer> permutation;
     
-    // Sets the TSP problem which solutions are following. 
-    // Once this is called, all existing Solutions are stale and should
+    // Sets the TSP problem which Individuals are following. 
+    // Once this is called, all existing Individuals are stale and should
     // not be used. 
-    // This MUST be called before the constructor for Solution.
+    // This MUST be called before the constructor for Individual.
     public static void set_problem(TSP_Problem new_problem)
     {
         problem = new_problem;
     }
 
-    // Initializes a solution from an ArrayList<Coords> and calculates score upon creation.
-    public Solution()
+    // Initializes a Individual from an ArrayList<Coords> and calculates score upon creation.
+    public Individual()
     {
         if (problem == null)
         {
@@ -44,7 +44,7 @@ public class Solution
     }
     
     // Copy constructor. 
-    public Solution(ArrayList<Integer> parent)
+    public Individual(ArrayList<Integer> parent)
     {
         permutation = new ArrayList<Integer>(parent);
         score = problem.getTotalDistance(permutation);
