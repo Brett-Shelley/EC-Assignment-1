@@ -124,7 +124,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
     }
 
     private Solution crossoverHelper(Solution parentOne, Solution parentTwo){
-        ArrayList<Coords> child = new ArrayList<Coords>();
+        ArrayList<Integer> child = new ArrayList<Integer>();
         int size = parentOne.size();
         int parent1_index;
         int parent2_index = 0;  //Zero because otherwise Java complains it may not be set

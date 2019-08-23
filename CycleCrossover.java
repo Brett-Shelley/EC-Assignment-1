@@ -11,8 +11,8 @@ public class CycleCrossover implements ITwoParentCrossover
         Random rand = RandomNumberGenerator.getRandom();
         int start = rand.nextInt(size);
         
-        ArrayList<Coords> childOne = new ArrayList<Coords>();
-        ArrayList<Coords> childTwo = new ArrayList<Coords>();
+        ArrayList<Integer> childOne = new ArrayList<Integer>();
+        ArrayList<Integer> childTwo = new ArrayList<Integer>();
         
         // Initialize child one and two to be null
         for (int i = 0; i < size; i++)
@@ -21,7 +21,7 @@ public class CycleCrossover implements ITwoParentCrossover
             childTwo.add(null);
         }
         
-        ArrayList<ArrayList<Coords>> children = new ArrayList<ArrayList<Coords>>();
+        ArrayList<ArrayList<Integer>> children = new ArrayList<ArrayList<Integer>>();
         children.add(childOne);
         children.add(childTwo);
         
@@ -41,8 +41,8 @@ public class CycleCrossover implements ITwoParentCrossover
             
             // Grab the children.
             // Note that childA could be childOne or childTwo
-            ArrayList<Coords> childA = children.get(child_index);
-            ArrayList<Coords> childB = children.get((child_index + 1) % 2);
+            ArrayList<Integer> childA = children.get(child_index);
+            ArrayList<Integer> childB = children.get((child_index + 1) % 2);
             
             // Copy current_index to the children.
             childA.set(current_index, parentOne.get(current_index));

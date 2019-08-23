@@ -8,7 +8,7 @@ public class ElitismSelection implements ISelection
     // numElites variable is number of elites present in a population
     public Population select(TSP_Problem tsp, Population solutions, int numElites)
     {
-        populationObject = new Population(tsp.getCoords(), tsp.getCoords().size());
+        populationObject = new Population(tsp, tsp.getCoords().size());
         // Initialise population array
         ArrayList<Solution> population = populationObject.getParents();
         ArrayList<Solution> elites = new ArrayList<Solution> ();

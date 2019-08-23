@@ -31,8 +31,8 @@ public class OrderCrossover implements ITwoParentCrossover
     
     private Solution crossoverhelper(Solution firstParent, Solution secondParent, int start, int end)
     {
-        ArrayList<Coords> child = new ArrayList<Coords>();
-        HashSet<Coords> points_in_child = new HashSet<Coords>();
+        ArrayList<Integer> child = new ArrayList<Integer>();
+        HashSet<Integer> points_in_child = new HashSet<Integer>();
         int size = firstParent.size();
         int child_size = 0;
         int parent_index;

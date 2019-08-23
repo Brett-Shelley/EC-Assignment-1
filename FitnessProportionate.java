@@ -9,7 +9,7 @@ public class FitnessProportionate implements ISelection
     // numSurvivors variable is number of solutions in population
     public Population select(TSP_Problem tsp, Population solutions, int numSurvivors)
     {
-        populationObject = new Population(tsp.getCoords(), tsp.getCoords().size());
+        populationObject = new Population(tsp, tsp.getCoords().size());
 
         // Initialise population array
         ArrayList<Solution> population = populationObject.getParents();
