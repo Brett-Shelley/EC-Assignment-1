@@ -57,7 +57,7 @@ public class TSP_Problem
                 else
                 {
                     tokens = line.split(" ", 3);
-                    if (tokens[0].equals("EOF")) {System.out.println(line);}
+                    if (tokens[0].equals("EOF")) {}
                     else
                     {
                         points.add(new Coords(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2])));
