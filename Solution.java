@@ -3,12 +3,13 @@ import java.util.Collections;
 
 
 /*--------------Solution Interface-------------------
+0. Use set_problem to set which TSP problem you are solving. 
 
-1.  creation of a solution requires an array list of Coords.
+1.  creation of a solution requires an array list of ints representing cities.
 
 2. getScore() returns a double reperesenting the solutions fitness level
 
-3. getPermutation() returns an ArrayList<Coords>. This is the individual solution path.
+3. getPermutation() returns an ArrayList<int>. This is the individual solution path.
 
 4. swap(int a, int b) swaps the two points in the permutation/solution path. 
 
@@ -16,14 +17,30 @@ import java.util.Collections;
 
 public class Solution
 {
+    private static TSP_Problem problem;
     private double score;
-    private ArrayList<Coords> permutation;
+    private ArrayList<Integer> permutation;
+    
+    // Sets the TSP problem which solutions are following. 
+    // Once this is called, all existing Solutions are stale and should
+    // not be used. 
+    // This MUST be called before the constructor for Solution.
+    public static void set_problem(TSP_Problem new_problem)
+    {
+        problem = new_problem;
+    }
 
     // Initializes a solution from an ArrayList<Coords> and calculates score upon creation.
-    public Solution(ArrayList<Coords> input)
+    public Solution()
     {
-        permutation = new ArrayList<Coords>(input);
-        score = getTotalDistance();
+        if (problem == null)
+        {
+            score = 0;
+            permutation = new ArrayList<Integer>();
+        }
+        
+        permutation = problem.initPermutation();
+        problem.getTotalDistance(permutation);
     }
     
     public int size()
@@ -31,7 +48,7 @@ public class Solution
     	return permutation.size();
     }
     
-    public Coords get(int i)
+    public int get(int i)
     {
     	if (i >= permutation.size())
     	{
@@ -47,7 +64,7 @@ public class Solution
     
     // Returns the index of point, or -1 if it is not
     // in the sequence. 
-    public int index_of(Coords point)
+    public int index_of(int point)
     {
     	return permutation.indexOf(point);
     }
@@ -59,7 +76,7 @@ public class Solution
     }
 
     //get the permutation
-    public ArrayList<Coords> getPermutation()
+    public ArrayList<Integer> getPermutation()
     {
         return permutation;
     }
@@ -78,49 +95,18 @@ public class Solution
         Collections.swap(permutation, a, b);
 
         //recalculate score
-        score = getTotalDistance();
+        problem.getTotalDistance(permutation);
     }
 
 	// Prints a line container each of the coordinates, followed by the trip length. 
 	public void print()
 	{
-		for (Coords point : permutation)
+		for (int point : permutation)
 		{
-			System.out.print("(" + point.getX() + ", " + point.getY() + ") -> "); 
+		    System.out.println(point + " -> ");
+			//System.out.print("(" + point.getX() + ", " + point.getY() + ") -> "); 
 		}
 		System.out.print("Total: " + score + "\n");
 		System.out.println("-------------------------------------");
 	}
-
-    // Helper function to getTotalDistance, calculates distance between two points
-    private double getDistance(int i, int j)
-    {
-        //get the x and y coordinates of the nodes at the ith and jth elements
-        double startX = permutation.get(i).getX();
-        double endX = permutation.get(j).getX();
-        double startY = permutation.get(i).getY();
-        double endY = permutation.get(j).getY();
-
-        //get the difference between the x and y coordinates at the ith and jth elements
-        double diffX = Math.abs(startX - endX);
-        double diffY = Math.abs(startY - endY);
-
-        //calculate the euclidean distance between the two points sqrt(diffX^2 + diffY^2)
-        return Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-    }
-
-    // Gets the total distance for a specified solution.
-    private double getTotalDistance()
-    {
-        double score = 0;
-
-        //calculate the euclidean distance between each node in the permutation and add to the total euclidean distance traveled
-        int length = permutation.size() - 1;
-        for (int i = 0; i < length; i++)
-        {
-            score += getDistance(i, i + 1);
-        }
-
-        return score;
-    }
 }
