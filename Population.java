@@ -21,14 +21,14 @@ public class Population
     private ArrayList<Solution> parents;
 
     // Creates an initial population of desired size
-    public Population(ArrayList<Coords> tspCoords, int size)
+    public Population(TSP_Problem tspCoords, int size)
     {
+        Solution.set_problem(tspCoords);
         parents = new ArrayList<Solution>();
         //shuffle tspCoords and create a new Solution. Add that solution to the population i times.
         for(int i = 0; i < size; i++)
         {
-            Collections.shuffle(tspCoords);
-            Solution sol = new Solution(tspCoords);
+            Solution sol = new Solution();
             parents.add(sol);
         }
     }
