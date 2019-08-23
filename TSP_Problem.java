@@ -26,8 +26,9 @@ public class TSP_Problem
             {
                 if (!read_coords)
                 {
-                    line.replaceAll("[^a-zA-Z0-9]","");
-                    tokens = line.split(" : ", 2);
+                   line=line.replaceAll(":", "");
+
+                    tokens = line.split("", 2);
                     switch(tokens[0])
                     {
                         case "NAME":
