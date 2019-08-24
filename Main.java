@@ -8,26 +8,24 @@ public class Main
 
     public static void main(String[] args)
     {
-        tsp = new TSP_Problem("./Problems/eil51.tsp");
-        // tsp = new TSP_Problem("./Problems/pr2392.tsp");
+        String name = "./Problems/eil51.tsp";
+        // String name = "./Problems/pr2392.tsp";
+        System.out.println(name + ",Mean,Standard Deviation");
+        tsp = new TSP_Problem(name);
 
         ElitismSelection elitism = new ElitismSelection();
         InverOver invOv = new InverOver();
 
-        // ArrayList<Double> values = new ArrayList<Double>();
-
-        //Work
         int populationSize = 50;
-        for(int x = 1; x <= 20000; x++){
+        for(int y = 1; y <= 30; y++){
             pop = new Population(tsp, tsp.getCoords().size());
-            Population testInvOv = invOv.InverOver(tsp, pop, 10, 0.02);
-            testInvOv = elitism.select(tsp, testInvOv, 10);
+            Population testInvOv = null;
+            for(int x = 1; x <= 20000; x++){
+                testInvOv = elitism.select(tsp, invOv.InverOver(tsp, pop, 10, 0.02), 10);
+            }
+            System.out.print("Interation: " + y + ",");
             stats(testInvOv.getParents());
         }
-
-        System.out.println("Number of cities: " + tsp.getCoords().size());
-
-        stats(values);
 
         // ArrayList<Double> jumpResultAll = new ArrayList<Double>();
         // ArrayList<Double> jumpResultMin = new ArrayList<Double>();
@@ -124,7 +122,7 @@ public class Main
         return mean;
     }
 
-    public void stats(ArrayList<Individual> population)
+    public static void stats(ArrayList<Individual> population)
     {
         double sum = 0;
         for (Individual solution : population) {
@@ -136,8 +134,8 @@ public class Main
             sum += Math.pow(solution.getScore() - mean, 2);
         }
         double stdDev = Math.sqrt(((1.0 / (double)population.size()) * sum));
-        System.out.println("Mean: " + mean);
-        System.out.println("Standard Deviation: " + stdDev);
+        System.out.print(mean + ",");
+        System.out.print(stdDev + "\n");
     }
 
     public static Double getPopulationScore(Population Individuals)
