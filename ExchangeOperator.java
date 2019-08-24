@@ -13,8 +13,9 @@ public class ExchangeOperator implements ILocalSearchOperator
     // Then the returned permutation is 8, 2, 6, 3, 4. 5, 1, 7
     public ArrayList<Integer> mutate(ArrayList<Integer> permutation, int first, int second)
     {
-        Collections.swap(permutation, first, second);
-        return permutation;
+        ArrayList<Integer> mutated = new ArrayList<Integer>(permutation);
+        Collections.swap(mutated, first, second);
+        return mutated;
     }
     
     public String name()
