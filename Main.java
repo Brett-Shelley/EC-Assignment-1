@@ -52,6 +52,10 @@ public class Main
         testPop = elitism.select(tsp, pop, 10);
         System.out.println("Mean fitness after elitism selection: " + getPopulationScore(testPop));
 
+        Population pop2 = new Population(tsp, tsp.getCoords().size());
+        InverOver invOv = new InverOver();
+        invOv.InverOver(pop2, 10, 0.02);
+
         return;
     }
 
