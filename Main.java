@@ -38,19 +38,21 @@ public class Main
             twoOptMin, numTests, true);
 
         System.out.println("Mean fitness before selection: " + getPopulationScore(pop));
-        Population testPop = pop;
+        Population testFit = new Population(tsp, tsp.getCoords().size());
+        Population testTourn = new Population(tsp, tsp.getCoords().size());
+        Population testElite = new Population(tsp, tsp.getCoords().size());
 
         FitnessProportionate fitProp = new FitnessProportionate();
-        testPop = fitProp.select(tsp, pop, 10);
-        System.out.println("Mean fitness after fitness selection: " + getPopulationScore(testPop));
+        testFit = fitProp.select(tsp, testFit, 10);
+        System.out.println("Mean fitness after fitness selection: " + getPopulationScore(testFit));
 
         TournamentSelection tournament = new TournamentSelection();
-        testPop = tournament.select(tsp, pop, 10);
-        System.out.println("Mean fitness after tournament selection: " + getPopulationScore(testPop));
+        testTourn = tournament.select(tsp, testTourn, 10);
+        System.out.println("Mean fitness after tournament selection: " + getPopulationScore(testTourn));
 
         ElitismSelection elitism = new ElitismSelection();
-        testPop = elitism.select(tsp, pop, 10);
-        System.out.println("Mean fitness after elitism selection: " + getPopulationScore(testPop));
+        testElite = elitism.select(tsp, testElite, 10);
+        System.out.println("Mean fitness after elitism selection: " + getPopulationScore(testElite));
 
         return;
     }
