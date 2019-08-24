@@ -34,7 +34,7 @@ public class Main
         if(Integer.parseInt(args[1])==3){
             ga3.GeneticAlgorithm(tsp,pop,populationSize);
             stats(pop.getParents());
-
+        }
         ElitismSelection elitism = new ElitismSelection();
         InverOver invOv = new InverOver();
 
@@ -52,8 +52,7 @@ public class Main
     }
 
     //I'd pass the function by reference instead, but Java 11 doesn't let you do that
-    public static double runTests(ILocalSearchOperator operator, ArrayList<Double> resultAll,
-        ArrayList<Double> resultMin, double min, int numTests, boolean printOutput)
+    public static double runTests(ILocalSearchOperator operator, ArrayList<Double> resultAll, ArrayList<Double> resultMin, double min, int numTests, boolean printOutput)
     {
         String name = operator.name();
         ArrayList<Double> temp = LocalSearch.search(tsp, operator);

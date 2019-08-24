@@ -4,7 +4,7 @@ public class GeneticAlgorithm2 implements IGenetic
 {
     public Population GeneticAlgorithm(TSP_Problem tsp,Population pop,int populationSize){
         
-        TournamentSelection tournament = new TournamentSelection(10);
+        TournamentSelection tournament = new TournamentSelection(populationSize/4);
         ArrayList<Individual> res=new ArrayList<Individual>();
         InsertMutation insert = new InsertMutation();
         CycleCrossover cycle = new CycleCrossover();
