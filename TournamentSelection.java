@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TournamentSelection implements ISelection
+public class TournamentSelection
 {
     Population populationObject;
 
     // Keeps individuals with higher fitness scores if selected in tournaments
     // Tournaments variable is equal to number of individuals returned
-    public Population select(TSP_Problem tsp, Population individuals, int tournaments)
+    public Population tSelect(TSP_Problem tsp, Population individuals, int tournaments,int n)
     {
-        int n = 3; // Number of individuals in tournament
+
         // Initialise population array
         ArrayList<Individual> population = individuals.getParents();
         ArrayList<Individual> survivors = new ArrayList<Individual> ();

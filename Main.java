@@ -9,7 +9,7 @@ public class Main
 
     public static void main(String[] args)
     {
-        tsp = new TSP_Problem("./Problems/eil51.tsp");
+        tsp = new TSP_Problem("./Problems/kroA100.tsp");
         int populationSize=20;
         pop = new Population(tsp, populationSize);
         OrderCrossover order = new OrderCrossover();
@@ -28,17 +28,16 @@ public class Main
         //20000 for 20000 generations
         Population matingPop=new Population(tsp,populationSize);
         for(int x=1;x<=20000;x++){
-            tournament.select(tsp, matingPop, populationSize);
+            tournament.select(tsp, matingPop, 50);
             for(int i=0;i<populationSize;i++){
                 pop.addToParents(matingPop.getParents().get(i));
                 for(int j=i+1;j<populationSize;j++){
                     res=order.crossover(matingPop.getParents().get(i), pop.getParents().get(j));
-                    pop.addToParents(swap.mutate(res.get(0)));
-                    pop.addToParents(swap.mutate(res.get(1)));
+                    pop.addToParents(invert.mutate(res.get(0)));
+                    pop.addToParents(invert.mutate(res.get(1)));
                 }
             }
            pop=tournament.select(tsp,pop,populationSize);
-            
             if(x==2000){
                 System.out.println(x+": "+pop.getBestScore());
             }
