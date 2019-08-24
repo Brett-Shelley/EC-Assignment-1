@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class PmxCrossover implements ITwoParentCrossover
 {
-    public ArrayList<Solution> crossover(Solution firstParent, Solution secondParent)
+    public ArrayList<Individual> crossover(Individual firstParent, Individual secondParent)
     {    
         int length = firstParent.size();
         Random rand = RandomNumberGenerator.getRandom();
@@ -14,7 +14,7 @@ public class PmxCrossover implements ITwoParentCrossover
         int temp;
         int current;
         
-        ArrayList<Solution> children = new ArrayList<Solution>();
+        ArrayList<Individual> children = new ArrayList<Individual>();
         // If start is before end, swap start and end. 
         if (start > end)
         {
@@ -30,10 +30,10 @@ public class PmxCrossover implements ITwoParentCrossover
          
     }
     
-    private Solution crossoverhelper(Solution firstParent, Solution secondParent, int start, int end)
+    private Individual crossoverhelper(Individual firstParent, Individual secondParent, int start, int end)
     {
-        ArrayList<Coords> child = new ArrayList<Coords>();
-        HashSet<Coords> points_in_child = new HashSet<Coords>();
+        ArrayList<Integer> child = new ArrayList<Integer>();
+        HashSet<Integer> points_in_child = new HashSet<Integer>();
         int size = firstParent.size();
         int child_size = 0;
         int parent_index;
@@ -61,11 +61,11 @@ public class PmxCrossover implements ITwoParentCrossover
             if (points_in_child.contains(secondParent.get(k)) == false)
             {
                 // Get the point we want to add. 
-                Coords point_to_add = secondParent.get(k);
+                int point_to_add = secondParent.get(k);
                 // Find the point at that position in the parent, as
                 // that is the point whose position in sequence we want to place
                 // the above point in. 
-                Coords point_to_replace = child.get(k);
+                int point_to_replace = child.get(k);
                 
                 // Find the position of point_to_replace. 
                 for (int l = 0; l < size; l++)
@@ -114,7 +114,7 @@ public class PmxCrossover implements ITwoParentCrossover
             child_size += 1;
         }
         
-        Solution result = new Solution(child);
+        Individual result = new Individual(child);
         
         return result;
     } 

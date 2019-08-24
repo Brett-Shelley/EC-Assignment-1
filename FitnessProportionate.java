@@ -3,12 +3,12 @@ import java.util.Random;
 
 public class FitnessProportionate implements ISelection
 {
-    // Keeps the solutions with higher fitness score with a higher probability
-    // numSurvivors variable is number of solutions in population
-    public Population select(TSP_Problem tsp, Population solutions, int numSurvivors)
+    // Keeps the Individuals with higher fitness score with a higher probability
+    // numSurvivors variable is number of Individuals in population
+    public Population select(TSP_Problem tsp, Population Individuals, int numSurvivors)
     {
         // Initialise population array
-        ArrayList<Solution> population = solutions.getParents();
+        ArrayList<Individual> population = Individuals.getParents();
 
         // Find sum of fitness
         double sum = 0;
@@ -20,7 +20,7 @@ public class FitnessProportionate implements ISelection
         // Select n individuals with probability assigned
         double probability;
         double randomProb;
-        ArrayList<Solution> survivors = new ArrayList<Solution> ();
+        ArrayList<Individual> survivors = new ArrayList<Individual> ();
         for (int i = 0; i < numSurvivors; i++)
         {
             probability = 0;

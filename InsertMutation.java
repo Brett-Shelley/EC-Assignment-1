@@ -2,10 +2,10 @@ import java.util.Random;
 
 public class InsertMutation implements IMutation
 {
-	public Solution mutate(Solution permutation)
+	public Individual mutate(Individual permutation)
 	{
 		// Copy permutation to avoid changing the orignal. 
-		Solution mutated = new Solution(permutation.getPermutation());
+		Individual mutated = new Individual(permutation.getPermutation());
 		
 		int length = mutated.size();
 		Random rand = RandomNumberGenerator.getRandom();

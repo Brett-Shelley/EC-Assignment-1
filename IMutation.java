@@ -1,4 +1,4 @@
 public interface IMutation
 {
-	public Solution mutate(Solution permutation);
+	public Individual mutate(Individual permutation);
 }

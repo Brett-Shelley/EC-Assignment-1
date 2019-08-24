@@ -7,48 +7,48 @@ import java.util.Collections;
 1.  creation of a population requires an array list of Coords and an integer size
     will create a population of the input size.
 
-2.  getParents() returns an array list of solutions. This is your population.
+2.  getParents() returns an array list of Individuals. This is your population.
 
-3.  addToParents(Solution) will add a solution to the end of the population array list
+3.  addToParents(Individual) will add a Individual to the end of the population array list
 
-4.  replaceParents(ArrayList<Solution>) will replace the current population with the input array list
+4.  replaceParents(ArrayList<Individual>) will replace the current population with the input array list
 
 ---------------------------------------------------------- */
 
 public class Population
 {
-    //arrayList of solutions
-    private ArrayList<Solution> parents;
+    //arrayList of Individuals
+    private ArrayList<Individual> parents;
 
     // Creates an initial population of desired size
-    public Population(ArrayList<Coords> tspCoords, int size)
+    public Population(TSP_Problem tspCoords, int size)
     {
-        parents = new ArrayList<Solution>();
-        //shuffle tspCoords and create a new Solution. Add that solution to the population i times.
+        Individual.set_problem(tspCoords);
+        parents = new ArrayList<Individual>();
+        //shuffle tspCoords and create a new Individual. Add that Individual to the population i times.
         for(int i = 0; i < size; i++)
         {
-            Collections.shuffle(tspCoords);
-            Solution sol = new Solution(tspCoords);
+            Individual sol = new Individual();
             parents.add(sol);
         }
     }
 
     //get the population
-    public ArrayList<Solution> getParents()
+    public ArrayList<Individual> getParents()
     {
         return parents;
     }
 
-    //add a solution to the parents list
-    public void addToParents(Solution input)
+    //add a Individual to the parents list
+    public void addToParents(Individual input)
     {
         parents.add(input);
     }
 
     //replace the parents list
-    public void replaceParents(ArrayList<Solution> input)
+    public void replaceParents(ArrayList<Individual> input)
     {
-        parents = new ArrayList<Solution>(input);
+        parents = new ArrayList<Individual>(input);
     }
 
 }
