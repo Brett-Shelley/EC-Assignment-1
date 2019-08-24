@@ -56,7 +56,9 @@ public class Main
 
         Population pop2 = new Population(tsp, tsp.getCoords().size());
         InverOver invOv = new InverOver();
-        invOv.InverOver(pop2, 10, 0.02);
+        Population testInvOv = invOv.InverOver(tsp, pop2, 10, 0.02);
+        testInvOv = elitism.select(tsp, testInvOv, 10);
+        System.out.println("Mean fitness after elitism selection on Inver-Over: " + getPopulationScore(testInvOv));
 
         return;
     }

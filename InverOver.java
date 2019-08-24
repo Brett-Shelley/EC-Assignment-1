@@ -13,10 +13,9 @@ public class InverOver
 
     //NOTE this is just pseudo code right now
         //Its recommended that `while_cond` is 10 and prob is `0.02`
-    public Population InverOver(Population pop, int while_cond, double prob)
+    public Population InverOver(TSP_Problem tsp, Population pop, int while_cond, double prob)
     {
         General shifter = new General();
-        TSP_Problem tsp = new TSP_Problem();
         Random rand = RandomNumberGenerator.getRandom();
         ArrayList<Individual> parents = pop.getParents();
         int num_parents = parents.size();
@@ -38,7 +37,8 @@ public class InverOver
             //each individual in the population
             for(int i = 0; i < num_parents; i++)
             {
-                individual_1 = parents.get(i);  //I' = I(i)
+                individual = parents.get(i);    //I' = I(i)
+                individual_1 = individual;
 
                 city = takeCity(individual_1, rand);    //select (randomly) a city from I'
 
@@ -78,8 +78,6 @@ public class InverOver
                 //Fitness evaluation
                 if(tsp.getTotalDistance(individual_1.getPermutation()) <= tsp.getTotalDistance(individual.getPermutation()))
                 {
-                    // parents.get(i) = individual_1;
-                    // parents.get(i) = individual_1;
                     parents.set(i, individual_1);
                     loop_times++;
                 }
@@ -96,8 +94,9 @@ public class InverOver
             }
         }
 
-        //update pop with parents
-        return pop;
+        //Update pop with parents
+        Population new_pop = new Population(parents);
+        return new_pop;
     }
 
 }
