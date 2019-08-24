@@ -34,6 +34,18 @@ public class Main
         if(Integer.parseInt(args[1])==3){
             ga3.GeneticAlgorithm(tsp,pop,populationSize);
             stats(pop.getParents());
+
+        ElitismSelection elitism = new ElitismSelection();
+        InverOver invOv = new InverOver();
+
+        for(int y = 1; y <= 30; y++){
+            pop = new Population(tsp, populationSize);
+            Population testInvOv = null;
+            for(int x = 1; x <= 20000; x++){
+                testInvOv = elitism.select(tsp, invOv.InverOver(tsp, pop, 10, 0.02), populationSize);
+            }
+            System.out.print("Interation: " + y + ",");
+            stats(testInvOv.getParents());
         }
         
         return;
@@ -94,8 +106,8 @@ public class Main
             sum += Math.pow(solution.getScore() - mean, 2);
         }
         double stdDev = Math.sqrt(((1.0 / (double)population.size()) * sum));
-        System.out.println("Mean: " + mean);
-        System.out.println("Standard Deviation: " + stdDev);
+        System.out.print(mean + ",");
+        System.out.print(stdDev + "\n");
     }
 
     public static Double getPopulationScore(Population Individuals)
