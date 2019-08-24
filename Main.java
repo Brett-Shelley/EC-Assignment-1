@@ -1,3 +1,4 @@
+    
 import java.util.ArrayList;
 
 //Main class
@@ -9,49 +10,56 @@ public class Main
     public static void main(String[] args)
     {
         tsp = new TSP_Problem("./Problems/eil51.tsp");
-        pop = new Population(tsp, tsp.getCoords().size());
+        int populationSize=20;
+        pop = new Population(tsp, populationSize);
+        System.out.println(pop.getParents().size());
+        OrderCrossover order = new OrderCrossover();
+        PmxCrossover pmx = new PmxCrossover();
+        CycleCrossover cycle = new CycleCrossover();
 
-        ArrayList<Double> jumpResultAll = new ArrayList<Double>();
-        ArrayList<Double> jumpResultMin = new ArrayList<Double>();
-        Double jumpMin = 0.0;
+        SwapMutation swap = new SwapMutation();
+        InsertMutation insert = new InsertMutation();
+        InvertMutation invert = new InvertMutation();
 
-        ArrayList<Double> exchangeResultAll = new ArrayList<Double>();
-        ArrayList<Double> exchangeResultMin = new ArrayList<Double>();
-        Double exchangeMin = 0.0;
-
-        ArrayList<Double> twoOptResultAll = new ArrayList<Double>();
-        ArrayList<Double> twoOptResultMin = new ArrayList<Double>();
-        Double twoOptMin = 0.0;
-
-        int numTests = 30;
-
-        JumpOperator jumpSearch = new JumpOperator();
-        jumpMin = runTests(jumpSearch, jumpResultAll, jumpResultMin,
-            jumpMin, numTests, true);
-
-        ExchangeOperator exchangeSearch = new ExchangeOperator();
-        exchangeMin = runTests(exchangeSearch, exchangeResultAll, exchangeResultMin,
-            exchangeMin, numTests, true);
-
-        TwoOptOperator twoOpt = new TwoOptOperator();
-        twoOptMin = runTests(twoOpt, twoOptResultAll, twoOptResultMin,
-            twoOptMin, numTests, true);
-
-        System.out.println("Mean fitness before selection: " + getPopulationScore(pop));
-        Population testPop = pop;
-
-        FitnessProportionate fitProp = new FitnessProportionate();
-        testPop = fitProp.select(tsp, pop, 10);
-        System.out.println("Mean fitness after fitness selection: " + getPopulationScore(testPop));
-
+        FitnessProportionate fit = new FitnessProportionate();
         TournamentSelection tournament = new TournamentSelection();
-        testPop = tournament.select(tsp, pop, 10);
-        System.out.println("Mean fitness after tournament selection: " + getPopulationScore(testPop));
+        ElitismSelection elite = new ElitismSelection();
 
-        ElitismSelection elitism = new ElitismSelection();
-        testPop = elitism.select(tsp, pop, 10);
-        System.out.println("Mean fitness after elitism selection: " + getPopulationScore(testPop));
+        ArrayList<Solution> res;
 
+        ArrayList<Solution> result;
+        //20000 for 20000 generations
+        Population matingPop=new Population(tsp,populationSize);
+        for(int x=0;x<20000;x++){
+            elite.select(tsp, matingPop, populationSize/4);
+            for(int i=0;i<populationSize;i++){
+                pop.addToParents(matingPop.getParents().get(i));
+                for(int j=i+1;j<populationSize;j++){
+                    res=order.crossover(matingPop.getParents().get(i), pop.getParents().get(j));
+                    pop.addToParents(swap.mutate(matingPop.getParents().get(0)));
+                    pop.addToParents(swap.mutate(matingPop.getParents().get(1)));
+                }
+            }
+            elite.select(tsp,pop,populationSize/4);
+            //System.out.println(populationSize);
+            System.out.println(pop.getParents().size());
+
+            if(x==2000){
+                System.out.println(x+": ");
+            }
+            else if(x==5000){
+                System.out.println();
+            }
+            else if(x==10000){
+            System.out.println();
+            }
+            else if(x==20000){
+                System.out.println();
+            }
+        }
+
+        System.out.println("Number of cities: " + tsp.getCoords().size());
+        
         return;
     }
 
