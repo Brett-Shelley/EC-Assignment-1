@@ -26,11 +26,14 @@ func $name
 name="lin105"
 func $name
 
-# name="pcb442"
-# func $name
+name="pcb442"
+func $name
 
 name="st70"
 func $name
 
-# name="pr2392"
-# func $name
+name="pr2392"
+func $name
+
+name="usa13509"
+func $name

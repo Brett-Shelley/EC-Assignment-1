@@ -15,25 +15,65 @@ public class Main
             return;
         }
 
-        GeneticAlgorithm1 ga1=new GeneticAlgorithm1();
-        GeneticAlgorithm2 ga2=new GeneticAlgorithm2();
-        GeneticAlgorithm3 ga3=new GeneticAlgorithm3();
         tsp = new TSP_Problem(args[0]);
-        int populationSize=Integer.parseInt(args[2]);
+        int populationSize = Integer.parseInt(args[2]);
         pop = new Population(tsp, populationSize);
+        int numTests = 30;
 
-        if(Integer.parseInt(args[1])==1){
-            ga1.GeneticAlgorithm(tsp,pop,populationSize);
-            stats(pop.getParents());
+        if(Integer.parseInt(args[1]) == 1){
+            ArrayList<Double> jumpResultAll = new ArrayList<Double>();
+            ArrayList<Double> jumpResultMin = new ArrayList<Double>();
+            Double jumpMin = 0.0;
 
+            JumpOperator jumpSearch = new JumpOperator();
+            jumpMin = runTests(jumpSearch, jumpResultAll, jumpResultMin,
+                jumpMin, numTests, true);
         }
-        if(Integer.parseInt(args[1])==2){
-            ga2.GeneticAlgorithm(tsp,pop,populationSize);
+        else if(Integer.parseInt(args[1]) == 2){
+            ArrayList<Double> exchangeResultAll = new ArrayList<Double>();
+            ArrayList<Double> exchangeResultMin = new ArrayList<Double>();
+            Double exchangeMin = 0.0;
+
+            ExchangeOperator exchangeSearch = new ExchangeOperator();
+            exchangeMin = runTests(exchangeSearch, exchangeResultAll, exchangeResultMin,
+                exchangeMin, numTests, true);
+        }
+        else if(Integer.parseInt(args[1]) == 3){
+            ArrayList<Double> twoOptResultAll = new ArrayList<Double>();
+            ArrayList<Double> twoOptResultMin = new ArrayList<Double>();
+            Double twoOptMin = 0.0;
+
+            TwoOptOperator twoOpt = new TwoOptOperator();
+            twoOptMin = runTests(twoOpt, twoOptResultAll, twoOptResultMin,
+                twoOptMin, numTests, true);
+        }
+        else if(Integer.parseInt(args[1]) == 4){
+            GeneticAlgorithm1 ga1 = new GeneticAlgorithm1();
+            ga1.GeneticAlgorithm(tsp ,pop ,populationSize);
             stats(pop.getParents());
         }
-        if(Integer.parseInt(args[1])==3){
-            ga3.GeneticAlgorithm(tsp,pop,populationSize);
+        else if(Integer.parseInt(args[1]) == 5){
+            GeneticAlgorithm2 ga2 = new GeneticAlgorithm2();
+            ga2.GeneticAlgorithm(tsp ,pop ,populationSize);
             stats(pop.getParents());
+        }
+        else if(Integer.parseInt(args[1]) == 6){
+            GeneticAlgorithm3 ga3 = new GeneticAlgorithm3();
+            ga3.GeneticAlgorithm(tsp ,pop ,populationSize);
+            stats(pop.getParents());
+        }
+        else if(Integer.parseInt(args[1]) == 7){    //InverOver
+            ElitismSelection elitism = new ElitismSelection();
+            InverOver invOv = new InverOver();
+
+            for(int y = 1; y <= numTests; y++){
+                pop = new Population(tsp, tsp.getCoords().size());
+                Population testInvOv = null;
+                for(int x = 1; x <= 20000; x++){
+                    testInvOv = elitism.select(tsp, invOv.InverOver(tsp, pop, 10, 0.02), 10);
+                }
+                stats(testInvOv.getParents());
+            }
         }
         
         return;
