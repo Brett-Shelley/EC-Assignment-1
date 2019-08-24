@@ -12,7 +12,6 @@ public class Main
         tsp = new TSP_Problem("./Problems/eil51.tsp");
         int populationSize=20;
         pop = new Population(tsp, populationSize);
-        System.out.println(pop.getParents().size());
         OrderCrossover order = new OrderCrossover();
         PmxCrossover pmx = new PmxCrossover();
         CycleCrossover cycle = new CycleCrossover();
@@ -25,36 +24,33 @@ public class Main
         TournamentSelection tournament = new TournamentSelection();
         ElitismSelection elite = new ElitismSelection();
 
-        ArrayList<Solution> res;
-
-        ArrayList<Solution> result;
+        ArrayList<Individual> res;
         //20000 for 20000 generations
         Population matingPop=new Population(tsp,populationSize);
-        for(int x=0;x<20000;x++){
-            elite.select(tsp, matingPop, populationSize/4);
+        for(int x=1;x<=20000;x++){
+            tournament.select(tsp, matingPop, populationSize);
             for(int i=0;i<populationSize;i++){
                 pop.addToParents(matingPop.getParents().get(i));
                 for(int j=i+1;j<populationSize;j++){
                     res=order.crossover(matingPop.getParents().get(i), pop.getParents().get(j));
-                    pop.addToParents(swap.mutate(matingPop.getParents().get(0)));
-                    pop.addToParents(swap.mutate(matingPop.getParents().get(1)));
+                    pop.addToParents(swap.mutate(res.get(0)));
+                    pop.addToParents(swap.mutate(res.get(1)));
                 }
             }
-            elite.select(tsp,pop,populationSize/4);
-            //System.out.println(populationSize);
-            System.out.println(pop.getParents().size());
-
+           pop=tournament.select(tsp,pop,populationSize);
+            
             if(x==2000){
-                System.out.println(x+": ");
+                System.out.println(x+": "+pop.getBestScore());
             }
             else if(x==5000){
-                System.out.println();
+                System.out.println(x+": "+pop.getBestScore());
             }
             else if(x==10000){
-            System.out.println();
+                System.out.println(x+": "+pop.getBestScore());
+
             }
             else if(x==20000){
-                System.out.println();
+                System.out.println(x+": "+pop.getBestScore());
             }
         }
 
