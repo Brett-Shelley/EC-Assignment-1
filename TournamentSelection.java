@@ -3,11 +3,18 @@ import java.util.Random;
 
 public class TournamentSelection implements ISelection
 {
+    Population populationObject;
+    private int tournamentSize;
+
+    public TournamentSelection(int size){
+        tournamentSize=size;
+    }
+    
     // Keeps individuals with higher fitness scores if selected in tournaments
     // Tournaments variable is equal to number of individuals returned
     public Population select(TSP_Problem tsp, Population individuals, int tournaments)
     {
-        int n = 3; // Number of individuals in tournament
+
         // Initialise population array
         ArrayList<Individual> population = individuals.getParents();
         ArrayList<Individual> survivors = new ArrayList<Individual> ();
@@ -17,7 +24,7 @@ public class TournamentSelection implements ISelection
             // Select n individuals randomly from individuals pool
             Random rand = RandomNumberGenerator.getRandom();
             ArrayList<Individual> competitors = new ArrayList<Individual>();
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < tournamentSize; i++)
             {
                 int randomProb = rand.nextInt(population.size());
                 competitors.add(population.get(randomProb));

@@ -28,7 +28,7 @@ public class FitnessProportionate implements ISelection
             randomProb = rand.nextDouble() * sum;
             for (int j = 0; j < population.size(); j++)
             {
-                if (probability > randomProb)
+                if (probability <= randomProb)
                 {
                     survivors.add(population.get(j));
                     population.remove(j);

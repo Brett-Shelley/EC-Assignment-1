@@ -7,20 +7,28 @@ public class TwoOptOperator implements ILocalSearchOperator
     // Implements the TwoOptOperator. 
     public ArrayList<Integer> mutate(ArrayList<Integer> permutation, int first, int second)
     {
-        ArrayList<Integer> twoOpt = new ArrayList<Integer>();
-        for (int i = 0; i < first; i++)
+        ArrayList<Integer> mutated = new ArrayList<Integer>(permutation);
+        int i = first;
+        int j = second;
+        while (true)
         {
-            twoOpt.add(permutation.get(i));
+            if (i == j)
+            {
+                break;
+            }
+            else if (i+1 == j)
+            {
+                Collections.swap(mutated, i, j);
+                break;
+            }
+            else
+            {
+                Collections.swap(mutated, i, j);
+                i++;
+                j--;
+            }
         }
-        for (int j = second; j > first-1; j--)
-        {
-            twoOpt.add(permutation.get(j));
-        }
-        for (int k = second+1; k < permutation.size(); k++)
-        {
-            twoOpt.add(permutation.get(k));
-        }
-        return twoOpt;
+        return mutated;
     }
     
     public String name()
