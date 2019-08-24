@@ -8,7 +8,8 @@ public class Main
 
     public static void main(String[] args)
     {
-        String name = "./Problems/eil51.tsp";
+
+        String name = "./Problems/" + args[0];
         // String name = "./Problems/pr2392.tsp";
         System.out.println(name + ",Mean,Standard Deviation");
         tsp = new TSP_Problem(name);
