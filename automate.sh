@@ -1,6 +1,7 @@
 #!/bin/bash
 
 func () {
+	echo "Running $1"
 	java Main "$1.tsp" > "Results/InverOver-$1.csv"
 }
 
@@ -25,11 +26,11 @@ func $name
 name="lin105"
 func $name
 
-name="pcb442"
-func $name
+# name="pcb442"
+# func $name
 
 name="st70"
 func $name
 
-name="pr2392"
-func $name
+# name="pr2392"
+# func $name
