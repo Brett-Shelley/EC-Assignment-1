@@ -13,6 +13,15 @@ public class TSP_Problem
     private String edge_weight_type;
     private ArrayList<Coords> points;
 
+    public TSP_Problem(){
+        name = "";
+        comment = "";
+        type = "";
+        dimension = -1;
+        edge_weight_type = "";
+        points = new ArrayList<Coords>(0);
+    }
+
     public TSP_Problem(String file_path)
     {
         try

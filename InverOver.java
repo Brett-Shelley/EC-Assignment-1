@@ -16,7 +16,7 @@ public class InverOver
     public Population InverOver(Population pop, int while_cond, double prob)
     {
         General shifter = new General();
-        TSP_Problem tsp = new TSP_Problem(null);
+        TSP_Problem tsp = new TSP_Problem();
         Random rand = RandomNumberGenerator.getRandom();
         ArrayList<Individual> parents = pop.getParents();
         int num_parents = parents.size();
