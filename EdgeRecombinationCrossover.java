@@ -16,26 +16,6 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
         return children;
     }
 
-    //Direction is False for left and True for right
-    private int shift(int index, int size, Boolean direction){
-        if(direction == false){
-            if(index == 0){
-                return size - 1;
-            }
-            else{
-                return index - 1;
-            }
-        }
-        else{
-            if(index == size - 1){
-                return 0;
-            }
-            else{
-                return index + 1;
-            }
-        }
-    }
-
     //Add a new edge to a given city
     private void addTableEntry(HashMap<Integer,Integer> map, int key){
         int count = map.containsKey(key) ? map.get(key) : 0;
@@ -128,6 +108,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
         int size = parentOne.size();
         int parent1_index;
         int parent2_index = 0;  //Zero because otherwise Java complains it may not be set
+        General shifter;
 
         //Create the neighbours table and populate it
         ArrayList<HashMap<Integer,Integer>> table = new ArrayList<HashMap<Integer,Integer>>();
@@ -140,16 +121,16 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             parent1_index = i;
 
             //Add the neighbours from parent1
-            addTableEntry(temp, shift(parent1_index, size, false));
-            addTableEntry(temp, shift(parent1_index, size, true));
+            addTableEntry(temp, shifter.shift(parent1_index, size, false));
+            addTableEntry(temp, shifter.shift(parent1_index, size, true));
 
             for(int j = 0; j < size; j++){
                 if(parentOne.get(parent1_index) == parentTwo.get(j)){
                     parent2_index = j;
                     //Convert parent2_index to the parent1 list
                         //get Individual N from parentTwo and find the same Individual from parentOne and get the index
-                    int left = shift(parent2_index, size, false);
-                    int right = shift(parent2_index, size, true);
+                    int left = shifter.shift(parent2_index, size, false);
+                    int right = shifter.shift(parent2_index, size, true);
                     for(int k = 0; k < size; k++){
                         //Add the neighbours from parent2
                         if(parentTwo.get(left) == parentOne.get(k) || parentTwo.get(right) == parentOne.get(k)){
