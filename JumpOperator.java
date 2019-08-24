@@ -17,11 +17,10 @@ public class JumpOperator implements ILocalSearchOperator
     // Then i = 4 and the sequence is returned. 
     public ArrayList<Integer> mutate(ArrayList<Integer> permutation, int first, int second)
     {
-        for (int i = first; i < second; i++)
-        {
-            Collections.swap(permutation, i, i+1);
-        }
-        return permutation;
+        ArrayList<Integer> mutated = new ArrayList<Integer>(permutation);
+        mutated.add(second+1, mutated.get(first));
+        mutated.remove(first);
+        return mutated;
     }
     
     public String name()
