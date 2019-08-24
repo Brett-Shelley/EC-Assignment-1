@@ -14,8 +14,7 @@ public class Main
             System.out.println("You have provided no arguments");
             return;
         }
-        System.out.println("Please select the algorithm which you would like to use");
-        System.out.println("1 selects the ");
+
         GeneticAlgorithm1 ga1=new GeneticAlgorithm1();
         GeneticAlgorithm2 ga2=new GeneticAlgorithm2();
         GeneticAlgorithm3 ga3=new GeneticAlgorithm3();
