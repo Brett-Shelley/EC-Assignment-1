@@ -19,10 +19,10 @@ public class ElitismSelection implements ISelection
             int indexBest = 0;
             for (int j = 1; j < population.size(); j++)
             {
-                if (best > population.get(j).getScore())
+                if (population.get(j).getScore() < best)
                 {
                     best = population.get(j).getScore();
-                    indexBest = i;
+                    indexBest = j;
                 }
             }
             // Add elites to seperate list
