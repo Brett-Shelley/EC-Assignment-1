@@ -8,12 +8,13 @@ public class Main
 
     public static void main(String[] args)
     {
-        // tsp = new TSP_Problem("./Problems/eil51.tsp");
+        tsp = new TSP_Problem("./Problems/eil51.tsp");
         // tsp = new TSP_Problem("./Problems/pr2392.tsp");
-        tsp = new TSP_Problem("./Problems/usa13509.tsp");
 
         ElitismSelection elitism = new ElitismSelection();
         InverOver invOv = new InverOver();
+
+        // ArrayList<Double> values = new ArrayList<Double>();
 
         //Work
         int populationSize = 50;
@@ -21,12 +22,12 @@ public class Main
             pop = new Population(tsp, tsp.getCoords().size());
             Population testInvOv = invOv.InverOver(tsp, pop, 10, 0.02);
             testInvOv = elitism.select(tsp, testInvOv, 10);
-            System.out.println("Mean fitness after elitism selection on Inver-Over: " + getPopulationScore(testInvOv));
-            
-            System.out.println("x equals: " + x);
+            stats(testInvOv.getParents());
         }
 
         System.out.println("Number of cities: " + tsp.getCoords().size());
+
+        stats(values);
 
         // ArrayList<Double> jumpResultAll = new ArrayList<Double>();
         // ArrayList<Double> jumpResultMin = new ArrayList<Double>();
@@ -121,6 +122,22 @@ public class Main
         }
         mean = mean / values.size();
         return mean;
+    }
+
+    public void stats(ArrayList<Individual> population)
+    {
+        double sum = 0;
+        for (Individual solution : population) {
+            sum += solution.getScore();
+        }
+        double mean = sum / (double)population.size();
+        sum = 0;
+        for (Individual solution : population) {
+            sum += Math.pow(solution.getScore() - mean, 2);
+        }
+        double stdDev = Math.sqrt(((1.0 / (double)population.size()) * sum));
+        System.out.println("Mean: " + mean);
+        System.out.println("Standard Deviation: " + stdDev);
     }
 
     public static Double getPopulationScore(Population Individuals)
