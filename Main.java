@@ -9,7 +9,9 @@ public class Main
     public static void main(String[] args)
     {
         tsp = new TSP_Problem("./Problems/eil51.tsp");
-        pop = new Population(tsp, tsp.getCoords().size());
+        int populationSize=20;
+        pop = new Population(tsp, populationSize);
+        System.out.println(pop.getParents().size());
         OrderCrossover order = new OrderCrossover();
         PmxCrossover pmx = new PmxCrossover();
         CycleCrossover cycle = new CycleCrossover();
@@ -17,28 +19,43 @@ public class Main
         SwapMutation swap = new SwapMutation();
         InsertMutation insert = new InsertMutation();
         InvertMutation invert = new InvertMutation();
-        // FitnessProportionate fit = new FitnessProportionate();
-        // TournamentSelection tournament = new TournamentSelection();
-        // ElitismSelection elite = new ElitismSelection();
+
+        FitnessProportionate fit = new FitnessProportionate();
+        TournamentSelection tournament = new TournamentSelection();
+        ElitismSelection elite = new ElitismSelection();
+
+        ArrayList<Solution> res;
 
         ArrayList<Solution> result;
         //20000 for 20000 generations
-        // for(int x=0;x<20000;x++){
+        Population matingPop=new Population(tsp,populationSize);
+        for(int x=0;x<20000;x++){
+            elite.select(tsp, matingPop, populationSize/4);
+            for(int i=0;i<populationSize;i++){
+                pop.addToParents(matingPop.getParents().get(i));
+                for(int j=i+1;j<populationSize;j++){
+                    res=order.crossover(matingPop.getParents().get(i), pop.getParents().get(j));
+                    pop.addToParents(swap.mutate(matingPop.getParents().get(0)));
+                    pop.addToParents(swap.mutate(matingPop.getParents().get(1)));
+                }
+            }
+            elite.select(tsp,pop,populationSize/4);
+            //System.out.println(populationSize);
+            System.out.println(pop.getParents().size());
 
-
-        //     if(x==2000){
-        //         System.out.println();
-        //     }
-        //     else if(x==5000){
-        //         System.out.println();
-        //     }
-        //     else if(x==10000){
-        //     System.out.println();
-        //     }
-        //     else if(x==20000){
-        //         System.out.println();
-        //     }
-        // }
+            if(x==2000){
+                System.out.println(x+": ");
+            }
+            else if(x==5000){
+                System.out.println();
+            }
+            else if(x==10000){
+            System.out.println();
+            }
+            else if(x==20000){
+                System.out.println();
+            }
+        }
 
         System.out.println("Number of cities: " + tsp.getCoords().size());
         
