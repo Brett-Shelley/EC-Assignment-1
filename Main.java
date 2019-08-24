@@ -24,13 +24,16 @@ public class Main
 
         if(Integer.parseInt(args[1])==1){
             ga1.GeneticAlgorithm(tsp,pop,populationSize);
+            stats(pop.getParents());
 
         }
         if(Integer.parseInt(args[1])==2){
             ga2.GeneticAlgorithm(tsp,pop,populationSize);
+            stats(pop.getParents());
         }
         if(Integer.parseInt(args[1])==3){
             ga3.GeneticAlgorithm(tsp,pop,populationSize);
+            stats(pop.getParents());
         }
         
         return;
@@ -79,7 +82,7 @@ public class Main
         return mean;
     }
 
-    public void stats(ArrayList<Individual> population)
+    public static void stats(ArrayList<Individual> population)
     {
         double sum = 0;
         for (Individual solution : population) {
