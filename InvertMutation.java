@@ -11,6 +11,16 @@ public class InvertMutation implements IMutation
 		Random rand = RandomNumberGenerator.getRandom();
 		int start = rand.nextInt(length);
 		int end = rand.nextInt(length);
+		
+		return mutateHelper(permutation, start, end);
+	}
+
+	public Individual mutateHelper(Individual permutation, int start, int end)
+	{
+		// Copy permutation to avoid changing the orignal. 
+		Individual mutated = new Individual(permutation.getPermutation());
+		
+		int length = mutated.size();
 		int temp;
 		int current;
 		
