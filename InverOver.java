@@ -7,7 +7,6 @@ public class InverOver
     {
         int new_city_index = rand.nextInt(individual.size());
         int city = individual.get(new_city_index);  //Get a new random city from our individual
-        // individual.remove(new_city_index);   //And I think we delete this city from the list?
         return city;
     }
 

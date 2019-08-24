@@ -8,57 +8,74 @@ public class Main
 
     public static void main(String[] args)
     {
-        tsp = new TSP_Problem("./Problems/eil51.tsp");
-        pop = new Population(tsp, tsp.getCoords().size());
-
-        ArrayList<Double> jumpResultAll = new ArrayList<Double>();
-        ArrayList<Double> jumpResultMin = new ArrayList<Double>();
-        Double jumpMin = 0.0;
-
-        ArrayList<Double> exchangeResultAll = new ArrayList<Double>();
-        ArrayList<Double> exchangeResultMin = new ArrayList<Double>();
-        Double exchangeMin = 0.0;
-
-        ArrayList<Double> twoOptResultAll = new ArrayList<Double>();
-        ArrayList<Double> twoOptResultMin = new ArrayList<Double>();
-        Double twoOptMin = 0.0;
-
-        int numTests = 30;
-
-        JumpOperator jumpSearch = new JumpOperator();
-        jumpMin = runTests(jumpSearch, jumpResultAll, jumpResultMin,
-            jumpMin, numTests, true);
-
-        ExchangeOperator exchangeSearch = new ExchangeOperator();
-        exchangeMin = runTests(exchangeSearch, exchangeResultAll, exchangeResultMin,
-            exchangeMin, numTests, true);
-
-        TwoOptOperator twoOpt = new TwoOptOperator();
-        twoOptMin = runTests(twoOpt, twoOptResultAll, twoOptResultMin,
-            twoOptMin, numTests, true);
-
-        System.out.println("Mean fitness before selection: " + getPopulationScore(pop));
-        Population testFit = new Population(tsp, tsp.getCoords().size());
-        Population testTourn = new Population(tsp, tsp.getCoords().size());
-        Population testElite = new Population(tsp, tsp.getCoords().size());
-
-        FitnessProportionate fitProp = new FitnessProportionate();
-        testFit = fitProp.select(tsp, testFit, 10);
-        System.out.println("Mean fitness after fitness selection: " + getPopulationScore(testFit));
-
-        TournamentSelection tournament = new TournamentSelection();
-        testTourn = tournament.select(tsp, testTourn, 10);
-        System.out.println("Mean fitness after tournament selection: " + getPopulationScore(testTourn));
+        // tsp = new TSP_Problem("./Problems/eil51.tsp");
+        // tsp = new TSP_Problem("./Problems/pr2392.tsp");
+        tsp = new TSP_Problem("./Problems/usa13509.tsp");
 
         ElitismSelection elitism = new ElitismSelection();
-        testElite = elitism.select(tsp, testElite, 10);
-        System.out.println("Mean fitness after elitism selection: " + getPopulationScore(testElite));
-
-        Population pop2 = new Population(tsp, tsp.getCoords().size());
         InverOver invOv = new InverOver();
-        Population testInvOv = invOv.InverOver(tsp, pop2, 10, 0.02);
-        testInvOv = elitism.select(tsp, testInvOv, 10);
-        System.out.println("Mean fitness after elitism selection on Inver-Over: " + getPopulationScore(testInvOv));
+
+        //Work
+        int populationSize = 50;
+        for(int x = 1; x <= 20000; x++){
+            pop = new Population(tsp, tsp.getCoords().size());
+            Population testInvOv = invOv.InverOver(tsp, pop, 10, 0.02);
+            testInvOv = elitism.select(tsp, testInvOv, 10);
+            System.out.println("Mean fitness after elitism selection on Inver-Over: " + getPopulationScore(testInvOv));
+            
+            System.out.println("x equals: " + x);
+        }
+
+        System.out.println("Number of cities: " + tsp.getCoords().size());
+
+        // ArrayList<Double> jumpResultAll = new ArrayList<Double>();
+        // ArrayList<Double> jumpResultMin = new ArrayList<Double>();
+        // Double jumpMin = 0.0;
+
+        // ArrayList<Double> exchangeResultAll = new ArrayList<Double>();
+        // ArrayList<Double> exchangeResultMin = new ArrayList<Double>();
+        // Double exchangeMin = 0.0;
+
+        // ArrayList<Double> twoOptResultAll = new ArrayList<Double>();
+        // ArrayList<Double> twoOptResultMin = new ArrayList<Double>();
+        // Double twoOptMin = 0.0;
+
+        // int numTests = 30;
+
+        // JumpOperator jumpSearch = new JumpOperator();
+        // jumpMin = runTests(jumpSearch, jumpResultAll, jumpResultMin,
+        //     jumpMin, numTests, true);
+
+        // ExchangeOperator exchangeSearch = new ExchangeOperator();
+        // exchangeMin = runTests(exchangeSearch, exchangeResultAll, exchangeResultMin,
+        //     exchangeMin, numTests, true);
+
+        // TwoOptOperator twoOpt = new TwoOptOperator();
+        // twoOptMin = runTests(twoOpt, twoOptResultAll, twoOptResultMin,
+        //     twoOptMin, numTests, true);
+
+        // System.out.println("Mean fitness before selection: " + getPopulationScore(pop));
+        // Population testFit = new Population(tsp, tsp.getCoords().size());
+        // Population testTourn = new Population(tsp, tsp.getCoords().size());
+        // Population testElite = new Population(tsp, tsp.getCoords().size());
+
+        // FitnessProportionate fitProp = new FitnessProportionate();
+        // testFit = fitProp.select(tsp, testFit, 10);
+        // System.out.println("Mean fitness after fitness selection: " + getPopulationScore(testFit));
+
+        // TournamentSelection tournament = new TournamentSelection();
+        // testTourn = tournament.select(tsp, testTourn, 10);
+        // System.out.println("Mean fitness after tournament selection: " + getPopulationScore(testTourn));
+
+        // ElitismSelection elitism = new ElitismSelection();
+        // testElite = elitism.select(tsp, testElite, 10);
+        // System.out.println("Mean fitness after elitism selection: " + getPopulationScore(testElite));
+
+        // Population pop2 = new Population(tsp, tsp.getCoords().size());
+        // InverOver invOv = new InverOver();
+        // Population testInvOv = invOv.InverOver(tsp, pop2, 10, 0.02);
+        // testInvOv = elitism.select(tsp, testInvOv, 10);
+        // System.out.println("Mean fitness after elitism selection on Inver-Over: " + getPopulationScore(testInvOv));
 
         return;
     }
