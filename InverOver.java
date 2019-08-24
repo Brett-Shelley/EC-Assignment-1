@@ -6,7 +6,7 @@ public class InverOver
 	private int takeCity(Individual individual, RandomNumberGenerator rand){
 		int new_city_index = rand.nextInt(individual.size());
 		int city = individual.get(new_city_index);	//Get a new random city from our individual
-		individual.remove(new_city_index);	//And I think we delete this city from the list?
+		// individual.remove(new_city_index);	//And I think we delete this city from the list?
 		return city;
 	}
 
@@ -28,19 +28,14 @@ public class InverOver
 		int city = 0;
 		int previous_city = 0;
 		int next_city = 0;
-		// int new_city_index;
 
 		int loop_times = 0;	//When best individual is unchanged for "while_cond" loops
 		while(looptimes < while_cond){
 			//each individual in the population
 			for(int i = 0; i < num_parents; i++){
-				individual_1 = parents.get(i);
+				individual_1 = parents.get(i);	//I' = I(i)
 
-				city = takeCity(individual_1, rand);
-
-				// new_city_index = rand.nextInt(individual_1.size());
-				// city = individual_1.get(new_city_index);	//Get a new random city from our individual
-				// individual_1.remove(new_city_index);	//And I think we delete this city from the list?
+				city = takeCity(individual_1, rand);	//select (randomly) a city from I'
 
 				while(true){
 
@@ -59,15 +54,16 @@ public class InverOver
 						city_1 = next_city;	//In other words just get the next city from our individual_1
 					}
 
-					//Get the next and previous cities
+					//if the next or previous cities of city c in I' is c'
 					previous_city = individual_1.get(shifter.shift(individual_1.indexOf(city), individual_1.size(), false));
 					next_city = individual_1.get(shifter.shift(individual_1.indexOf(city), individual_1.size(), true));
 					if(next_city == city_1 || previous_city == city_1){
-						//if the next or previous cities of city c in I' is C'
 						break;
 					}
-					individual_1 = invertor.mutateHelper(individual_1, individual_1.indexOf(city), individual_1.indexOf(city_1));
-					city = city_1;
+
+					//Inverse the section from the next city of city c to the city c' in I'
+					individual_1 = invertor.mutateHelper(individual_1, individual_1.indexOf(next_city), individual_1.indexOf(city_1));
+					city = city_1;	//c = c'
 				}
 
 				//Fitness evaluation
@@ -79,7 +75,7 @@ public class InverOver
 					loop_times = 0;
 				}
 
-				//Leaving the loops
+				//Leaving the loops (Isn't it possible to leave without having a full solution?)
 				if(looptimes >= while_cond){
 					break;
 				}
