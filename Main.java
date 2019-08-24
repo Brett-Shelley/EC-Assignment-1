@@ -34,6 +34,7 @@ public class Main
         if(Integer.parseInt(args[1])==3){
             ga3.GeneticAlgorithm(tsp,pop,populationSize);
             stats(pop.getParents());
+        }
 
         ElitismSelection elitism = new ElitismSelection();
         InverOver invOv = new InverOver();
