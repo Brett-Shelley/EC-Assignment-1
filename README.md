@@ -1,7 +1,7 @@
 # EC-Assignment-1
 
 #-----------Group Members------------#\
-Brett Shelley\
+Brett Shelley a1645904 brett.shelley@student.adelaide.edu.au \
 David Harley\
 Jayden Boskell\
 Raymond Habis        a1631834  raymond.habis@student.adelaide.edu.au \
