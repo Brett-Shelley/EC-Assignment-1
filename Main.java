@@ -101,6 +101,22 @@ public class Main
         return mean;
     }
 
+    public void stats(ArrayList<Individual> population)
+    {
+        double sum = 0;
+        for (Individual solution : population) {
+            sum += solution.getScore();
+        }
+        double mean = sum / (double)population.size();
+        sum = 0;
+        for (Individual solution : population) {
+            sum += Math.pow(solution.getScore() - mean, 2);
+        }
+        double stdDev = Math.sqrt(((1.0 / (double)population.size()) * sum));
+        System.out.println("Mean: " + mean);
+        System.out.println("Standard Deviation: " + stdDev);
+    }
+
     public static Double getPopulationScore(Population Individuals)
     {
         Double avgScore = 0.0;
