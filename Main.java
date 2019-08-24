@@ -79,7 +79,7 @@ public class Main
         return mean;
     }
 
-    public void stats(ArrayList<Individual> population)
+    public static void stats(ArrayList<Individual> population)
     {
         double sum = 0;
         for (Individual solution : population) {
