@@ -14,26 +14,26 @@ public class Main
             System.out.println("You have provided no arguments");
             return;
         }
-        System.out.println(args[0]);
+        System.out.println("Please select the algorithm which you would like to use");
+        System.out.println("1 selects the ");
         GeneticAlgorithm1 ga1=new GeneticAlgorithm1();
         GeneticAlgorithm2 ga2=new GeneticAlgorithm2();
         GeneticAlgorithm3 ga3=new GeneticAlgorithm3();
         tsp = new TSP_Problem(args[0]);
-        int populationSize=20;
+        int populationSize=Integer.parseInt(args[2]);
         pop = new Population(tsp, populationSize);
-        System.out.println(tsp.getDimension());
 
         if(Integer.parseInt(args[1])==1){
             ga1.GeneticAlgorithm(tsp,pop,populationSize);
 
         }
-        // if(args[1].equals("2")){
-        //     ga2.GeneticAlgorithm(tsp,pop,populationSize);
+        if(Integer.parseInt(args[1])==2){
+            ga2.GeneticAlgorithm(tsp,pop,populationSize);
 
-        // }
-        // if(args[1].equals("3")){
-        //     ga3.GeneticAlgorithm(tsp,pop,populationSize);
-        // }
+        }
+        if(Integer.parseInt(args[1])==3){
+            ga3.GeneticAlgorithm(tsp,pop,populationSize);
+        }
         
         return;
     }
