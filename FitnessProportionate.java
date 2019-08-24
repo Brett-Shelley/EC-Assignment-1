@@ -40,7 +40,7 @@ public class FitnessProportionate implements ISelection
                 }
             }
         }
-        solutions.replaceParents(survivors);
-        return solutions;
+        Individuals.replaceParents(survivors);
+        return Individuals;
     }
 }
