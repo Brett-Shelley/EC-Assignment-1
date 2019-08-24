@@ -9,51 +9,31 @@ public class Main
 
     public static void main(String[] args)
     {
-        tsp = new TSP_Problem("./Problems/kroA100.tsp");
+        if(args.length==0)
+        {
+            System.out.println("You have provided no arguments");
+            return;
+        }
+        System.out.println(args[0]);
+        GeneticAlgorithm1 ga1=new GeneticAlgorithm1();
+        GeneticAlgorithm2 ga2=new GeneticAlgorithm2();
+        GeneticAlgorithm3 ga3=new GeneticAlgorithm3();
+        tsp = new TSP_Problem(args[0]);
         int populationSize=20;
         pop = new Population(tsp, populationSize);
-        OrderCrossover order = new OrderCrossover();
-        PmxCrossover pmx = new PmxCrossover();
-        CycleCrossover cycle = new CycleCrossover();
+        System.out.println(tsp.getDimension());
 
-        SwapMutation swap = new SwapMutation();
-        InsertMutation insert = new InsertMutation();
-        InvertMutation invert = new InvertMutation();
+        if(Integer.parseInt(args[1])==1){
+            ga1.GeneticAlgorithm(tsp,pop,populationSize);
 
-        FitnessProportionate fit = new FitnessProportionate();
-        TournamentSelection tournament = new TournamentSelection();
-        ElitismSelection elite = new ElitismSelection();
-
-        ArrayList<Individual> res;
-        //20000 for 20000 generations
-        Population matingPop=new Population(tsp,populationSize);
-        for(int x=1;x<=20000;x++){
-            tournament.select(tsp, matingPop, 50);
-            for(int i=0;i<populationSize;i++){
-                pop.addToParents(matingPop.getParents().get(i));
-                for(int j=i+1;j<populationSize;j++){
-                    res=order.crossover(matingPop.getParents().get(i), pop.getParents().get(j));
-                    pop.addToParents(invert.mutate(res.get(0)));
-                    pop.addToParents(invert.mutate(res.get(1)));
-                }
-            }
-           pop=tournament.select(tsp,pop,populationSize);
-            if(x==2000){
-                System.out.println(x+": "+pop.getBestScore());
-            }
-            else if(x==5000){
-                System.out.println(x+": "+pop.getBestScore());
-            }
-            else if(x==10000){
-                System.out.println(x+": "+pop.getBestScore());
-
-            }
-            else if(x==20000){
-                System.out.println(x+": "+pop.getBestScore());
-            }
         }
+        // if(args[1].equals("2")){
+        //     ga2.GeneticAlgorithm(tsp,pop,populationSize);
 
-        System.out.println("Number of cities: " + tsp.getCoords().size());
+        // }
+        // if(args[1].equals("3")){
+        //     ga3.GeneticAlgorithm(tsp,pop,populationSize);
+        // }
         
         return;
     }
