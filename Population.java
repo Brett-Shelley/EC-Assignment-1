@@ -20,6 +20,11 @@ public class Population
     //arrayList of Individuals
     private ArrayList<Individual> parents;
 
+    // Used in InverOver
+    public Population(ArrayList<Individual> input){
+        parents = new ArrayList<Individual>(input);
+    }
+
     // Creates an initial population of desired size
     public Population(TSP_Problem tspCoords, int size)
     {

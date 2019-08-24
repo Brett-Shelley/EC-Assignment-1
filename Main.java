@@ -28,7 +28,6 @@ public class Main
         }
         if(Integer.parseInt(args[1])==2){
             ga2.GeneticAlgorithm(tsp,pop,populationSize);
-
         }
         if(Integer.parseInt(args[1])==3){
             ga3.GeneticAlgorithm(tsp,pop,populationSize);

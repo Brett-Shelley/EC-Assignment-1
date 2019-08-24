@@ -9,7 +9,7 @@ public class TournamentSelection implements ISelection
     public TournamentSelection(int size){
         tournamentSize=size;
     }
-
+    
     // Keeps individuals with higher fitness scores if selected in tournaments
     // Tournaments variable is equal to number of individuals returned
     public Population select(TSP_Problem tsp, Population individuals, int tournaments)

@@ -145,7 +145,7 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
             remainingCities.add(i);
         }
 
-        Random rand;
+        Random rand = RandomNumberGenerator.getRandom();
         int city_id = 0;    //This is the "city_id" th element in the parentOne list
                             //This is initialised so the compiler doesn't complain
         HashMap<Integer, Integer> previousCityPaths = null;
@@ -158,7 +158,6 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
                 // Shortest list
                 // Failsafe (no clear leader, etc)
             if(i == 0){    //For first element
-                rand = RandomNumberGenerator.getRandom();
                 city_id = remainingCities.get(rand.nextInt(remainingCities.size()));    //Choose a random city we haven't chosen yet
             }
             else{   //Note, the first time we come in here, we have 1 less than the initial number of cities to choose from
@@ -167,7 +166,6 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
                 ArrayList<Integer> edges = getCityEdges(previousCityPaths);
 
                 if(edges.size() <= 0){  //No edges left
-                    rand = RandomNumberGenerator.getRandom();
                     city_id = remainingCities.get(rand.nextInt(remainingCities.size()));
                 }
                 else if(edges.size() == 1){ //One option so we choose it
@@ -184,7 +182,6 @@ public class EdgeRecombinationCrossover implements ITwoParentCrossover
                             city_id = edges.get(0);
                         }
                         else{   //Still no clear winner
-                            rand = RandomNumberGenerator.getRandom();
                             city_id = edges.get(rand.nextInt(edges.size()));
                         }
                     }
