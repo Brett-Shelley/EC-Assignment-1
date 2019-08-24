@@ -9,40 +9,21 @@ public class Main
 
     public static void main(String[] args)
     {
-        if(args.length==0)
-        {
-            System.out.println("You have provided no arguments");
-            return;
-        }
 
-        GeneticAlgorithm1 ga1=new GeneticAlgorithm1();
-        GeneticAlgorithm2 ga2=new GeneticAlgorithm2();
-        GeneticAlgorithm3 ga3=new GeneticAlgorithm3();
-        tsp = new TSP_Problem(args[0]);
-        int populationSize=Integer.parseInt(args[2]);
-        pop = new Population(tsp, populationSize);
-
-        if(Integer.parseInt(args[1])==1){
-            ga1.GeneticAlgorithm(tsp,pop,populationSize);
-            stats(pop.getParents());
-
-        }
-        if(Integer.parseInt(args[1])==2){
-            ga2.GeneticAlgorithm(tsp,pop,populationSize);
-            stats(pop.getParents());
-        }
-        if(Integer.parseInt(args[1])==3){
-            ga3.GeneticAlgorithm(tsp,pop,populationSize);
-            stats(pop.getParents());
+        String name = "./Problems/" + args[0];
+        // String name = "./Problems/pr2392.tsp";
+        System.out.println(name + ",Mean,Standard Deviation");
+        tsp = new TSP_Problem(name);
 
         ElitismSelection elitism = new ElitismSelection();
         InverOver invOv = new InverOver();
 
+        int populationSize = 50;
         for(int y = 1; y <= 30; y++){
-            pop = new Population(tsp, populationSize);
+            pop = new Population(tsp, tsp.getCoords().size());
             Population testInvOv = null;
             for(int x = 1; x <= 20000; x++){
-                testInvOv = elitism.select(tsp, invOv.InverOver(tsp, pop, 10, 0.02), populationSize);
+                testInvOv = elitism.select(tsp, invOv.InverOver(tsp, pop, 10, 0.02), 10);
             }
             System.out.print("Interation: " + y + ",");
             stats(testInvOv.getParents());
