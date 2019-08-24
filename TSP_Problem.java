@@ -1,3 +1,4 @@
+    
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -26,7 +27,9 @@ public class TSP_Problem
             {
                 if (!read_coords)
                 {
-                    tokens = line.split(" : ", 2);
+                    line=line.replaceAll(":", "");
+                    tokens = line.split(" ", 2);
+
                     switch(tokens[0])
                     {
                         case "NAME":
@@ -39,6 +42,7 @@ public class TSP_Problem
                             type = tokens[1];
                             break;
                         case "DIMENSION":
+                            tokens[1]=tokens[1].replaceAll(" ", "");
                             dimension = Integer.parseInt(tokens[1]);
                             break;
                         case "EDGE_WEIGHT_TYPE":

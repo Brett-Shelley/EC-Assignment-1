@@ -6,7 +6,7 @@ public class ElitismSelection implements ISelection
 
     // Keeps the Individuals with highest fitness scores
     // numElites variable is number of elites present in a population
-    public Population select(TSP_Problem tsp, Population Individuals, int numElites)
+    public Population select(TSP_Problem tsp, Population individuals, int numElites)
     {
         populationObject = new Population(tsp, tsp.getCoords().size());
         // Initialise population array
