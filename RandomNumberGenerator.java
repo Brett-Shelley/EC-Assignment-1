@@ -12,6 +12,7 @@ public class RandomNumberGenerator
 		if (generator == null)
 		{
 			generator = new Random();
+			generator.setSeed(System.currentTimeMillis());
 		}
 		
 		return generator;
