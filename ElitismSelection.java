@@ -9,8 +9,8 @@ public class ElitismSelection implements ISelection
     public Population select(TSP_Problem tsp, Population individuals , int numElites)
     {
         // Initialise population array
-        ArrayList<Individual> population = individuals.getParents();
-        ArrayList<Individual> elites = new ArrayList<Individual> ();
+        ArrayList<Solution> population = individuals.getParents();
+        ArrayList<Solution> elites = new ArrayList<Solution> ();
 
         // Find elites and seperate from population
         for (int i = 0; i < numElites; i++)
